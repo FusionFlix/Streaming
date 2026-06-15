@@ -1,0 +1,175 @@
+{
+  "globalSettings": {
+    "slideSpeed": 2000
+  },
+  "services": [
+    {
+      "id": "netflix",
+      "name": "Netflix",
+      "color": "#E50914",
+      "plan": "Plan Premium 4K",
+      "price": "24.90",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+      "features": [
+        "Calidad 4K HDR",
+        "Perfiles estables con PIN",
+        "Evasión de bloqueo de hogar"
+      ],
+      "btnText": "#ffffff"
+    },
+    {
+      "id": "disney",
+      "name": "Disney+",
+      "color": "#0063E5",
+      "plan": "Plan Estándar",
+      "price": "15.90",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg",
+      "features": [
+        "Disney, Pixar y Marvel",
+        "Deportes por ESPN",
+        "Resolución 1080p"
+      ],
+      "btnText": "#ffffff"
+    },
+    {
+      "id": "max",
+      "name": "Max",
+      "color": "#002BE7",
+      "plan": "Plan Platino",
+      "price": "18.90",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Max_logo.svg",
+      "features": [
+        "Catálogo de HBO y DC",
+        "Estabilidad garantizada",
+        "Resolución Full HD"
+      ],
+      "btnText": "#ffffff"
+    },
+    {
+      "id": "prime",
+      "name": "Prime Video",
+      "color": "#00A8E1",
+      "plan": "Plan Mensual",
+      "price": "12.90",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
+      "features": [
+        "Series originales",
+        "Calidad 4K HDR",
+        "Sin anuncios"
+      ],
+      "btnText": "#000000"
+    },
+    {
+      "id": "crunchyroll",
+      "name": "Crunchyroll",
+      "color": "#F47521",
+      "plan": "Mega Fan",
+      "price": "12.00",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/0/08/Crunchyroll_Logo.png",
+      "features": [
+        "Sin publicidad",
+        "Episodios estreno simultáneo",
+        "Catálogo completo de anime"
+      ],
+      "btnText": "#000000"
+    },
+    {
+      "id": "spotify",
+      "name": "Spotify",
+      "color": "#1DB954",
+      "plan": "Premium Individual",
+      "price": "14.90",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg",
+      "features": [
+        "Música sin anuncios",
+        "Escucha sin conexión",
+        "Audio de alta calidad"
+      ],
+      "btnText": "#000000"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "color": "#FF0000",
+      "plan": "Premium Familiar",
+      "price": "16.90",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg",
+      "features": [
+        "Videos sin anuncios",
+        "YouTube Music incluido",
+        "Reproducción en 2do plano"
+      ],
+      "btnText": "#ffffff"
+    },
+    {
+      "id": "paramount",
+      "name": "Paramount+",
+      "color": "#0064FF",
+      "plan": "Plan Básico",
+      "price": "10.90",
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Paramount_Plus.svg",
+      "features": [
+        "Películas de éxito",
+        "Deportes en vivo",
+        "Contenido de Nickelodeon"
+      ],
+      "btnText": "#ffffff"
+    },
+    {
+      "id": "vix",
+      "name": "ViX Premium",
+      "color": "#FF6B00",
+      "plan": "Vix Premium",
+      "price": "18.00",
+      "logoUrl": "https://www.hollywoodreporter.com/wp-content/uploads/2024/01/ViX_logo-1-H-2024.jpg",
+      "features": [
+        "Liga MX exclusiva",
+        "Liga Española",
+        "Telenovelas premium"
+      ],
+      "btnText": "#ffffff"
+    },
+    {
+      "id": "canva",
+      "name": "Canva Pro",
+      "color": "#00C4CC",
+      "plan": "Canva Pro",
+      "price": "10.00",
+      "logoUrl": "https://edudigital.pro/wp-content/uploads/2024/03/CANVAPRO.png",
+      "features": [
+        "Herramientas Pro de diseño",
+        "Plantillas infinitas",
+        "Activación en tu propio correo"
+      ],
+      "btnText": "#000000"
+    },
+    {
+      "id": "magis",
+      "name": "Magis TV",
+      "color": "#FFD700",
+      "plan": "Panel IPTV",
+      "price": "20.00",
+      "logoUrl": "https://magisstvapp.com/wp-content/uploads/2026/03/cropped-magiss-tv-app-logo-02-01.png",
+      "features": [
+        "Miles de canales premium en vivo",
+        "Deportes PPV en directo",
+        "Catálogo de películas integrado"
+      ],
+      "btnText": "#000000"
+    },
+    {
+      "id": "appletv",
+      "name": "Apple TV+",
+      "color": "#ffffff",
+      "plan": "Apple TV+",
+      "price": "15.00",
+      "logoUrl": "https://1000logos.net/wp-content/uploads/2022/02/Apple-TV-Logo-1.png",
+      "features": [
+        "Producciones originales",
+        "Calidad visual premium",
+        "Alta fidelidad"
+      ],
+      "btnText": "#000000"
+    }
+  ]
+}

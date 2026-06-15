@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>FSNFLIX | Tu Portal de Streaming Premium</title>
+    <!-- CDN de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React y ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- Babel para compilar JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        /* Tipografía Premium Outfit */
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Temas Duales Premium */
+        .theme-dark {
+            --bg-main: #0f0f11;
+            --bg-card: #16161a;
+            --bg-card-hover: #1e1e24;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255,255,255,0.05);
+        }
+
+        .theme-light {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        body.theme-dark { background-color: var(--bg-main); color: var(--text-main); }
+        body.theme-light { background-color: var(--bg-main); color: var(--text-main); }
+
+        /* Sombra de texto cinemática profunda para legibilidad absoluta contra fondos brillantes */
+        .text-shadow-cinematic {
+            text-shadow: 0 4px 20px rgba(0,0,0,0.98), 0 2px 8px rgba(0,0,0,0.95);
+        }
+
+        /* Scrollbar estético */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e50914; }
+
+        /* Clases CSS personalizadas para tarjetas */
+        .premium-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .premium-card:hover {
+            background-color: var(--bg-card-hover);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .theme-light .premium-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+    </style>
+</head>
+<body class="theme-dark overflow-x-hidden selection:bg-red-650 selection:text-white">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useCallback } = React;
+
+        // ENDPOINTS DIRECTOS EN GITHUB SIN CACHÉ
+        const GITHUB_MOVIES_URL = "https://raw.githubusercontent.com/DRAKENVOLK/FNSFLIX/main/peliculas.json";
+        const GITHUB_STORE_URL = "https://raw.githubusercontent.com/DRAKENVOLK/FNSFLIX/main/tienda_config.json";
+        const WHATSAPP_PHONE = "51986193615";
+
+        // ================= DATOS DE RESPALDO OFFLINE (FALLBACK) =================
+        const BACKUP_MOVIES = [
+          {
+            id: "st-5", title: "Stranger Things 5", platform: "Netflix", type: "Serie de TV",
+            overview: "La temporada final donde el grupo se enfrenta al enigma definitivo del Upside Down para salvar a Hawkins de una vez por todas.",
+            rating: 8.9, releaseYear: "2026", duration: "Temporada Final", genres: ["Ciencia Ficción", "Drama"],
+            backdropUrl: "https://image.tmdb.org/t/p/w1280/56v2dnL56CNm6CHgmqXfw88llm6.jpg"
+          }
+        ];
+
+        const BACKUP_SERVICES = [
+            { id: 'netflix', name: 'Netflix', color: '#E50914', plan: 'Plan Premium 4K', price: '24.90', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg', features: 'Calidad 4K HDR\nPerfiles estables con PIN\nEvasión de bloqueo de hogar', btnText: '#ffffff', status: 'Disponible' }
+        ];
+
+        // MÉTODOS DE PAGO DEFINITIVOS CON LOGOS Y QRS SOLICITADOS
+        const PAYMENT_METHODS = [
+            { 
+                id: 'binance', 
+                name: 'Binance', 
+                logo: 'https://i.imgur.com/k0FBADb.png', 
+                qrs: ['https://i.imgur.com/j6JGfiL.png'],
+                instructions: 'Escanea el código QR de Binance Pay desde tu aplicación de Binance.'
+            },
+            { 
+                id: 'prexpe', 
+                name: 'Prexpe', 
+                logo: 'https://i.imgur.com/hYH6MS2.png', 
+                qrs: ['https://i.imgur.com/zPVSWGu.png'],
+                instructions: 'Escanea el código QR de Prex para transferir de manera inmediata.'
+            },
+            { 
+                id: 'yape', 
+                name: 'Yape', 
+                logo: 'https://i.imgur.com/xmJIlY1.png', 
+                qrs: ['https://i.imgur.com/BJM8hDH.png', 'https://i.imgur.com/eihEzag.png'],
+                instructions: 'Escanea cualquiera de nuestros códigos QR de Yape desde tu aplicativo.'
+            },
+            { 
+                id: 'plin', 
+                name: 'Plin', 
+                logo: 'https://i.imgur.com/39r84Q8.png', 
+                qrs: ['https://i.imgur.com/BJM8hDH.png', 'https://i.imgur.com/eihEzag.png'],
+                instructions: 'Escanea el código QR interoperable de Yape/Plin desde tu aplicación bancaria.'
+            }
+        ];
+
+        const PLATFORM_THEMES = {
+          "Netflix": { brandColor: "from-red-600 to-red-800", textColor: "text-red-500", borderActive: "border-red-650", badgeBg: "bg-red-950/70 text-red-300 border-red-900/50" },
+          "Disney+": { brandColor: "from-cyan-500 to-blue-600", textColor: "text-cyan-400", borderActive: "border-cyan-500", badgeBg: "bg-cyan-950/70 text-cyan-300 border-cyan-900/50" },
+          "Crunchyroll": { brandColor: "from-amber-500 to-orange-600", textColor: "text-amber-500", borderActive: "border-amber-500", badgeBg: "bg-amber-950/70 text-amber-300 border-amber-800" },
+          "Max": { brandColor: "from-indigo-600 to-purple-800", textColor: "text-indigo-400", borderActive: "border-indigo-600", badgeBg: "bg-indigo-950/70 text-indigo-300 border-indigo-900/50" },
+          "Prime Video": { brandColor: "from-sky-400 to-blue-500", textColor: "text-sky-400", borderActive: "border-sky-500", badgeBg: "bg-sky-950/70 text-sky-300 border-sky-900/50" },
+          "Apple TV+": { brandColor: "from-neutral-400 to-neutral-600", textColor: "text-neutral-400", borderActive: "border-neutral-400", badgeBg: "bg-neutral-900/70 text-neutral-350 border-neutral-700/50" },
+          "ViX Premium": { brandColor: "from-orange-500 to-orange-700", textColor: "text-orange-500", borderActive: "border-orange-600", badgeBg: "bg-orange-950/70 text-orange-300 border-orange-900/50" },
+          "Magis TV": { brandColor: "from-yellow-500 to-yellow-700", textColor: "text-yellow-500", borderActive: "border-yellow-500", badgeBg: "bg-yellow-950/70 text-yellow-300 border-yellow-900/50" }
+        };
+
+        // Función robusta para parsear las listas de beneficios de la tienda previniendo errores de consola
+        const getFeaturesList = (features) => {
+            if (!features) return [];
+            if (Array.isArray(features)) return features;
+            if (typeof features === 'string') return features.split('\n').map(f => f.trim()).filter(Boolean);
+            return [];
+        };
+
+        // ================= COMPONENTE LOGO DE PLATAFORMA (FLOTANTE TRANSPARENTE EN SLIDER) =================
+        const PlatformLogo = ({ platform, sizeClass = "h-8 md:h-11", shopCatalog = [], isGrayscale = false }) => {
+            const activeService = shopCatalog?.find(s => s.name.toLowerCase() === platform?.toLowerCase());
+            
+            const defaultLogos = {
+                "netflix": "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+                "spotify": "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg",
+                "max": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Max_logo.svg",
+                "disney+": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg",
+                "prime video": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
+                "crunchyroll": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Crunchyroll_Logo_and_Text.svg",
+                "paramount+": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Paramount_Plus.svg",
+                "youtube": "https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg",
+                "apple tv+": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Apple_TV_Plus_logo.svg",
+                "vix premium": "https://www.hollywoodreporter.com/wp-content/uploads/2024/01/ViX_logo-1-H-2024.jpg",
+                "canva pro": "https://edudigital.pro/wp-content/uploads/2024/03/CANVAPRO.png",
+                "magis tv": "https://magisstvapp.com/wp-content/uploads/2026/03/cropped-magiss-tv-app-logo-02-01.png"
+            };
+            
+            const platKey = platform?.toLowerCase();
+            const url = activeService?.logoUrl || defaultLogos[platKey];
+            
+            const invertInLight = ["disney+", "spotify", "paramount+", "apple tv+", "vix premium"].includes(platKey);
+
+            if (url) {
+                return (
+                    <img 
+                        src={url} 
+                        alt={platform} 
+                        referrerPolicy="no-referrer" 
+                        className={`${sizeClass} w-auto object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] ${invertInLight ? 'logo-adaptive' : ''} ${isGrayscale ? 'grayscale opacity-40' : ''}`} 
+                    />
+                );
+            }
+            return <span className={`font-black uppercase tracking-wider ${sizeClass} text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] flex items-center`}>{platform}</span>;
+        };
+
+        const App = () => {
+          const [movies, setMovies] = useState(BACKUP_MOVIES);
+          const [currentIndex, setCurrentIndex] = useState(0);
+          const [slideProgress, setSlideProgress] = useState(0);
+          const [isTransitioning, setIsTransitioning] = useState(false);
+          const [themeMode, setThemeMode] = useState("dark");
+          
+          // ESTADOS DE TIENDA Y VELOCIDAD GLOBALES SINCRO GITHUB
+          const [storeServices, setStoreServices] = useState(BACKUP_SERVICES);
+          const [slideSpeed, setSlideSpeed] = useState(6000); 
+
+          // ESTADOS PARA FLUJO DE COMPRA SPA PASO 2 Y MODAL QR A PANTALLA COMPLETA
+          const [selectedCheckoutService, setSelectedCheckoutService] = useState(null);
+          const [activeQrMethod, setActiveQrMethod] = useState(null);
+          
+          // ESTADO PARA EL BANNER DE PROMOCIÓN DEBAJO DEL SLIDER
+          const [promoIndex, setPromoIndex] = useState(0);
+
+          const progressInterval = useRef(null);
+          const touchStartX = useRef(null);
+          const touchEndX = useRef(null);
+
+          // === DOBLE SINCRONIZACIÓN AUTOMÁTICA DESDE GITHUB ===
+          useEffect(() => {
+            const fetchAllData = async () => {
+              const timestamp = new Date().getTime();
+
+              try {
+                const resMovies = await fetch(`${GITHUB_MOVIES_URL}?t=${timestamp}`);
+                if (resMovies.ok) {
+                  const dataMovies = await resMovies.json();
+                  if (Array.isArray(dataMovies) && dataMovies.length > 0) {
+                    setMovies(dataMovies);
+                  }
+                }
+              } catch (e) {
+                console.log("Error de conexión con peliculas.json.");
+              }
+
+              try {
+                const resStore = await fetch(`${GITHUB_STORE_URL}?t=${timestamp}`);
+                if (resStore.ok) {
+                  const dataStore = await resStore.json();
+                  if (dataStore) {
+                    if (dataStore.globalSettings && dataStore.globalSettings.slideSpeed) {
+                      setSlideSpeed(dataStore.globalSettings.slideSpeed);
+                    }
+                    if (Array.isArray(dataStore.services) && dataStore.services.length > 0) {
+                      setStoreServices(dataStore.services);
+                    }
+                  }
+                }
+              } catch (e) {
+                console.log("Error de conexión con tienda_config.json.");
+              }
+            };
+            fetchAllData();
+          }, []);
+
+          // Alternador Automático del Banner de Promoción (Pagos / Comunidad)
+          useEffect(() => {
+            const promoInterval = setInterval(() => {
+              setPromoIndex(prev => (prev === 0 ? 1 : 0));
+            }, 4000); // Cambia cada 4 segundos
+            return () => clearInterval(promoInterval);
+          }, []);
+
+          useEffect(() => {
+            const body = document.body;
+            if (themeMode === "light") {
+              body.className = "theme-light overflow-x-hidden selection:bg-red-650 selection:text-white";
+            } else {
+              body.className = "theme-dark overflow-x-hidden selection:bg-red-650 selection:text-white";
+            }
+          }, [themeMode]);
+
+          const nextSlide = useCallback(() => {
+            if (movies.length === 0) return;
+            setIsTransitioning(true);
+            setTimeout(() => {
+              setCurrentIndex(prev => (prev === movies.length - 1 ? 0 : prev + 1));
+              setSlideProgress(0);
+              setIsTransitioning(false);
+            }, 300);
+          }, [movies.length]);
+
+          const prevSlide = () => {
+            if (movies.length === 0) return;
+            setIsTransitioning(true);
+            setTimeout(() => {
+              setCurrentIndex(prev => (prev === 0 ? movies.length - 1 : prev - 1));
+              setSlideProgress(0);
+              setIsTransitioning(false);
+            }, 300);
+          };
+
+          useEffect(() => {
+            if (movies.length === 0 || selectedCheckoutService || activeQrMethod) return;
+            const updateRate = 100;
+            const step = (updateRate / slideSpeed) * 100;
+
+            progressInterval.current = setInterval(() => {
+              setSlideProgress(prev => {
+                if (prev >= 100) {
+                  nextSlide();
+                  return 0;
+                }
+                return prev + step;
+              });
+            }, updateRate);
+
+            return () => {
+              if (progressInterval.current) clearInterval(progressInterval.current);
+            };
+          }, [nextSlide, movies.length, slideSpeed, selectedCheckoutService, activeQrMethod]);
+
+          const resetAutoplay = () => {
+            setSlideProgress(0);
+            if (progressInterval.current) {
+              clearInterval(progressInterval.current);
+            }
+          };
+
+          const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+          const handleTouchMove = (e) => { touchEndX.current = e.touches[0].clientX; };
+          const handleTouchEnd = () => {
+            if (!touchStartX.current || !touchEndX.current) return;
+            const diff = touchStartX.current - touchEndX.current;
+            if (diff > 50) { nextSlide(); resetAutoplay(); } 
+            else if (diff < -50) { prevSlide(); resetAutoplay(); }
+            touchStartX.current = null;
+            touchEndX.current = null;
+          };
+
+          const currentMovie = movies[currentIndex] || DEFAULT_MOVIES[0];
+          const activeTheme = PLATFORM_THEMES[currentMovie?.platform] || { brandColor: "from-neutral-600 to-neutral-800", accentBg: "bg-neutral-600", borderActive: "border-neutral-600" };
+
+          // MENSAJE DE WHATSAPP DINÁMICO
+          const getWaMessage = () => {
+              if (!selectedCheckoutService) return "";
+              const isAgotado = selectedCheckoutService.status === "Agotado" || selectedCheckoutService.badge?.toUpperCase() === "SIN STOCK";
+              return isAgotado
+                  ? encodeURIComponent(`¡Hola FSNFLIX! Veo que no hay disponibilidad de cuentas de *${selectedCheckoutService.name}* (${selectedCheckoutService.plan}). ¿Cuándo volverán a tener stock?`)
+                  : encodeURIComponent(`¡Hola FSNFLIX! Deseo adquirir el plan *${selectedCheckoutService.plan}* de *${selectedCheckoutService.name}*. Adjunto mi comprobante de pago para la activación inmediata.`);
+          };
+
+          return (
+            <div className="min-h-screen relative transition-colors duration-500">
+              
+              {/* MODAL DEL CÓDIGO QR EN PANTALLA COMPLETA (LIGHTBOX LIBRE) */}
+              {activeQrMethod && (
+                  <div className="fixed inset-0 z-[200] flex flex-col items-center justify-center p-6 bg-black/95 backdrop-blur-2xl animate-fade-in overflow-y-auto">
+                      
+                      {/* Botón Cerrar (X) */}
+                      <button 
+                          onClick={() => setActiveQrMethod(null)}
+                          className="absolute top-6 right-6 md:top-10 md:right-10 text-white hover:text-red-500 transition-colors bg-neutral-900/50 rounded-full p-2"
+                      >
+                          <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                      </button>
+
+                      <div className="w-full max-w-5xl flex flex-col items-center mt-10 mb-8">
+                          
+                          {/* Título del QR */}
+                          <div className="text-center space-y-2 mb-10">
+                              <h3 className="text-2xl md:text-4xl font-black text-white uppercase tracking-wider">Escanea y Paga</h3>
+                              <p className="text-neutral-400 text-sm md:text-base max-w-md mx-auto">{activeQrMethod.instructions}</p>
+                          </div>
+
+                          {/* QRs Libres (Sin cajas ni fondos extraños, 1 o 2 imágenes lado a lado) */}
+                          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full mb-12">
+                              {activeQrMethod.qrs.map((qr, i) => (
+                                  <img 
+                                      key={i}
+                                      src={qr} 
+                                      alt={`QR ${activeQrMethod.name} ${i+1}`}
+                                      referrerPolicy="no-referrer"
+                                      className="w-[80vw] max-w-[280px] md:max-w-sm h-auto object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,0.6)] hover:scale-105 transition-transform duration-500 rounded-3xl"
+                                  />
+                              ))}
+                          </div>
+
+                          {/* ÚNICO Botón Verde Oficial de WhatsApp (SIN PRECIO, SOLO CONTACTO) */}
+                          <a 
+                              href={`https://wa.me/${WHATSAPP_PHONE}?text=${getWaMessage()}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-8 md:px-12 py-4 md:py-5 bg-[#25D366] hover:bg-[#20ba53] text-white font-black text-sm md:text-lg uppercase tracking-widest rounded-2xl transition-transform transform hover:-translate-y-1 shadow-2xl shadow-emerald-500/20 flex items-center justify-center gap-3 w-full sm:w-auto"
+                          >
+                              {/* Logotipo de WhatsApp original SVG */}
+                              <svg className="h-6 w-6 md:h-8 md:w-8 fill-current text-white" viewBox="0 0 24 24">
+                                  <path d="M12.005 0C5.378 0 .005 5.373.005 12.002c0 2.128.552 4.195 1.6 6.002L0 24l6.14-1.61c1.764.966 3.75 1.474 5.865 1.474 6.627 0 12-5.373 12-12.002S18.632 0 12.005 0zm0 21.84c-1.802 0-3.56-.484-5.11-1.402l-.367-.217-3.793.994.994-3.7-.238-.377a9.845 9.845 0 01-1.503-5.26c0-5.448 4.434-9.882 9.885-9.882 2.64 0 5.12 1.028 6.985 2.894 1.866 1.867 2.895 4.348 2.895 6.988 0 5.45-4.435 9.883-9.882 9.883zm5.418-7.397c-.297-.149-1.758-.867-2.03-.967-.272-.099-.47-.149-.668.149-.198.298-.767.967-.94 1.165-.173.198-.346.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.714.248-1.325.173-1.451-.074-.126-.272-.198-.57-.347z"/>
+                              </svg>
+                              PAGAR Y CONTACTAR AL WHATSAPP
+                          </a>
+                      </div>
+                  </div>
+              )}
+
+              {/* NAVEGACIÓN SUPERIOR FIJA */}
+              {!selectedCheckoutService && (
+                <header className={`fixed top-0 left-0 w-full z-50 px-6 py-4 md:px-12 flex justify-between items-center transition-colors duration-500 backdrop-blur-md border-b ${
+                  themeMode === "light" 
+                    ? "bg-white/80 border-slate-200 shadow-sm" 
+                    : "bg-black/50 border-white/5"
+                }`}>
+                  <div className="flex items-center gap-8">
+                    <span className="text-red-655 font-black text-3xl tracking-tighter cursor-pointer hover:scale-105 transition-transform duration-300">
+                      FSNFLIX
+                    </span>
+                    <nav className={`hidden md:flex items-center gap-6 text-sm font-bold uppercase tracking-wider ${
+                      themeMode === "light" ? "text-neutral-500" : "text-neutral-300"
+                    }`}>
+                      <span className={`transition-colors cursor-pointer ${themeMode === "light" ? "text-neutral-900 hover:text-red-655" : "text-white hover:text-red-500"}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Estrenos</span>
+                      <span className={`transition-colors cursor-pointer ${themeMode === "light" ? "text-neutral-900 hover:text-red-655" : "text-white hover:text-red-500"}`} onClick={() => document.getElementById("tienda-section")?.scrollIntoView({ behavior: 'smooth' })}>Tienda Oficial</span>
+                    </nav>
+                  </div>
+                  
+                  <div className="flex items-center gap-4">
+                    {/* Selector de Tema */}
+                    <button
+                      onClick={() => setThemeMode(themeMode === "light" ? "dark" : "light")}
+                      className={`p-2.5 rounded-full border transition-all ${
+                        themeMode === "light" 
+                          ? "border-neutral-300 text-neutral-600 hover:text-black hover:border-black bg-white/50" 
+                          : "border-neutral-600 text-neutral-300 hover:text-white hover:border-white bg-black/40"
+                      }`}
+                      title="Alternar Tema"
+                    >
+                      {themeMode === "light" ? (
+                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                      ) : (
+                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.364l-.707-.707M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </header>
+              )}
+
+              {/* SLIDER SUPERIOR CINEMÁTICO (SE ADAPTA AL CHECKOUT PARA SER FONDO VISIBLE E INMERSIVO) */}
+              <section 
+                className={`${
+                    selectedCheckoutService 
+                    ? 'fixed inset-0 z-0 h-screen' 
+                    : 'relative w-full h-[75vh] min-h-[520px] md:h-[80vh] lg:h-[85vh] pb-16 md:pb-20'
+                } flex items-end overflow-hidden bg-black select-none transition-all duration-700`}
+                onTouchStart={!selectedCheckoutService ? handleTouchStart : undefined}
+                onTouchMove={!selectedCheckoutService ? handleTouchMove : undefined}
+                onTouchEnd={!selectedCheckoutService ? handleTouchEnd : undefined}
+              >
+                {movies.map((movie, index) => {
+                  const isCurrent = index === currentIndex;
+                  return (
+                    <div
+                      key={index}
+                      className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${
+                        isCurrent ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                      }`}
+                    >
+                      <img 
+                        src={movie.backdropUrl} 
+                        alt={movie.title}
+                        referrerPolicy="no-referrer"
+                        className={`w-full h-full object-cover object-center transform transition-transform duration-[8000ms] ease-out ${
+                          isCurrent ? 'scale-105' : 'scale-100'
+                        }`}
+                        onError={(e) => {
+                          e.target.src = "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1600&q=80";
+                        }}
+                      />
+                      
+                      {/* Oclusión dinámica: Si estamos en checkout, desenfoca la película de forma inmersiva */}
+                      <div className={`absolute inset-0 transition-colors duration-700 ${
+                          selectedCheckoutService 
+                            ? 'bg-black/60 backdrop-blur-sm'
+                            : (themeMode === "light" 
+                                ? "bg-gradient-to-t from-slate-50 via-black/35 to-black/20" 
+                                : "bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-black/35")
+                      }`} />
+                      {!selectedCheckoutService && <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-neutral-950/45 to-transparent" />}
+                    </div>
+                  );
+                })}
+
+                {/* ELEMENTOS DEL SLIDER (SOLO VISIBLES SI NO ESTAMOS EN CHECKOUT) */}
+                {!selectedCheckoutService && movies.length > 0 && (
+                  <>
+                    <div className={`absolute bottom-0 left-0 w-2/3 h-2/3 rounded-full filter blur-[140px] opacity-20 pointer-events-none transition-all duration-1000 bg-gradient-to-br ${activeTheme.brandColor} z-10`} />
+
+                    {/* LOGO DE PLATAFORMA FLOTANTE TRANSPARENTE EN ESQUINA INFERIOR DERECHA */}
+                    <div className="absolute bottom-16 right-6 md:right-12 z-35 animate-fade-in pointer-events-none hidden sm:block">
+                      <PlatformLogo platform={currentMovie?.platform} sizeClass="h-10 md:h-14 lg:h-16" shopCatalog={storeServices} />
+                    </div>
+
+                    <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 animate-fade-in text-white pt-32 pb-6">
+                      <div className="max-w-3xl space-y-4 md:space-y-5 text-left">
+                        <div className="flex flex-wrap items-center gap-3">
+                          <span className="bg-red-655/90 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded border border-red-900/50">
+                            {currentMovie?.type}
+                          </span>
+                          <span className="text-sm font-semibold flex items-center gap-1.5 px-3 py-1 rounded-md border backdrop-blur-md bg-black/60 border-neutral-800 text-neutral-200">
+                            <span className="text-yellow-500 text-base">★</span> {currentMovie?.rating}
+                          </span>
+                          <span className="text-sm font-bold text-neutral-350 text-shadow-cinematic">
+                            {currentMovie?.releaseYear}
+                          </span>
+                          <span className="text-sm font-bold text-neutral-350 text-shadow-cinematic">
+                            {currentMovie?.duration}
+                          </span>
+                        </div>
+                        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-none uppercase select-none text-white text-shadow-cinematic">
+                          {currentMovie?.title}
+                        </h1>
+                        <p className="text-xs sm:text-sm md:text-base lg:text-lg line-clamp-2 md:line-clamp-3 leading-relaxed font-normal max-w-2xl select-text text-neutral-200 text-shadow-cinematic">
+                          {currentMovie?.overview}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 pt-1">
+                          {currentMovie?.genres?.slice(0, 3).map((g, idx) => (
+                            <span key={idx} className="text-[10px] sm:text-xs px-3.5 py-1.5 rounded-xl font-bold border bg-neutral-900/95 border-neutral-800 text-neutral-350">
+                              {g}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="absolute bottom-6 left-0 w-full z-30 px-6 md:px-12">
+                      <div className="max-w-7xl mx-auto flex flex-col gap-2">
+                        <div className="w-full h-[3.5px] rounded-full overflow-hidden bg-neutral-900">
+                          <div className={`h-full bg-red-655 transition-all ease-linear`} style={{ width: `${slideProgress}%` }} />
+                        </div>
+                        <div className="flex justify-end gap-1.5 pt-1">
+                          {movies.map((_, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => { setCurrentIndex(idx); setSlideProgress(0); }}
+                              className={`h-2.5 rounded-full transition-all duration-300 ${
+                                idx === currentIndex ? "bg-red-655 w-7" : "bg-neutral-800 w-2.5 hover:bg-neutral-700"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </section>
+
+              {/* RENDERIZADO SPA PASO 2: VISTA DE CHECKOUT SOBRE EL SLIDER INMERSIVO */}
+              {selectedCheckoutService ? (
+                  <div className="relative z-10 pt-10 pb-16 px-6 md:px-12 animate-fade-in">
+                      <div className="max-w-7xl mx-auto space-y-8">
+                          
+                          {/* Botón de Retorno */}
+                          <button 
+                              onClick={() => setSelectedCheckoutService(null)}
+                              className="flex items-center gap-2.5 text-xs font-black uppercase tracking-widest text-white transition-all bg-neutral-900/60 border border-neutral-700/50 backdrop-blur-md px-5 py-3 rounded-xl hover:-translate-x-1 w-max"
+                          >
+                              ← Cancelar Pedido
+                          </button>
+
+                          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 items-start">
+                              
+                              {/* Columna Izquierda: Tarjeta del Producto Elegido */}
+                              <div className="lg:col-span-4">
+                                  <div className="sticky top-10 space-y-6">
+                                      <span className="text-red-500 font-black text-xs uppercase tracking-widest block drop-shadow-md">Suscripción Elegida</span>
+                                      
+                                      <div 
+                                          className="premium-card rounded-3xl p-6 md:p-8 flex flex-col relative overflow-hidden h-full bg-[#16161a]/90 backdrop-blur-xl border border-white/10 shadow-2xl"
+                                          style={{ borderTopWidth: '5px', borderTopStyle: 'solid', borderTopColor: selectedCheckoutService.status === "Agotado" ? '#404040' : selectedCheckoutService.color }}
+                                      >
+                                          <div className="h-10 mb-5 flex items-center justify-start brand-logo-container">
+                                              <PlatformLogo platform={selectedCheckoutService.name} sizeClass="h-8 md:h-10" shopCatalog={storeServices} isGrayscale={selectedCheckoutService.status === "Agotado"} />
+                                          </div>
+                                          <div className="text-[11px] uppercase font-bold tracking-widest mb-1 text-neutral-400">
+                                              {selectedCheckoutService.plan}
+                                          </div>
+                                          <div className="flex items-baseline gap-1 mb-8">
+                                              <span className="text-base font-bold text-neutral-400">S/</span>
+                                              <span className="text-4xl md:text-5xl font-black tracking-tight text-white">{selectedCheckoutService.price}</span>
+                                              <span className="text-xs font-medium text-neutral-400 ml-1">/ mes</span>
+                                          </div>
+                                          <ul className="space-y-3.5 mb-2">
+                                              {getFeaturesList(selectedCheckoutService.features).map((feature, i) => (
+                                                  <li key={i} className="flex items-start gap-3 text-sm font-medium opacity-90 text-white">
+                                                      <span className="text-lg leading-none mt-[-2px]" style={{ color: selectedCheckoutService.color }}>•</span>
+                                                      <span className="leading-snug">{feature}</span>
+                                                  </li>
+                                              ))}
+                                          </ul>
+                                      </div>
+
+                                      {/* BOTÓN WHATSAPP DE ACCIÓN MAESTRA */}
+                                      <a 
+                                          href={`https://wa.me/${WHATSAPP_PHONE}?text=${getWaMessage()}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="w-full py-4.5 bg-[#25D366] hover:bg-[#20ba53] text-white font-black text-sm uppercase tracking-widest rounded-2xl transition-all shadow-xl shadow-emerald-500/20 text-center flex items-center justify-center gap-3 transform hover:-translate-y-1"
+                                      >
+                                          <svg className="h-6 w-6 fill-current text-white" viewBox="0 0 24 24">
+                                              <path d="M12.005 0C5.378 0 .005 5.373.005 12.002c0 2.128.552 4.195 1.6 6.002L0 24l6.14-1.61c1.764.966 3.75 1.474 5.865 1.474 6.627 0 12-5.373 12-12.002S18.632 0 12.005 0zm0 21.84c-1.802 0-3.56-.484-5.11-1.402l-.367-.217-3.793.994.994-3.7-.238-.377a9.845 9.845 0 01-1.503-5.26c0-5.448 4.434-9.882 9.885-9.882 2.64 0 5.12 1.028 6.985 2.894 1.866 1.867 2.895 4.348 2.895 6.988 0 5.45-4.435 9.883-9.882 9.883zm5.418-7.397c-.297-.149-1.758-.867-2.03-.967-.272-.099-.47-.149-.668.149-.198.298-.767.967-.94 1.165-.173.198-.346.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.714.248-1.325.173-1.451-.074-.126-.272-.198-.57-.347z"/>
+                                          </svg>
+                                          Pagar y contactar al WhatsApp
+                                      </a>
+                                  </div>
+                              </div>
+
+                              {/* Columna Derecha: Tarjetas de Logos de Pago Gigantes Libres de Selección */}
+                              <div className="lg:col-span-8 space-y-8 animate-fade-in mt-6 lg:mt-0">
+                                  <div className="space-y-1.5 text-center md:text-left drop-shadow-lg">
+                                      <span className="text-red-500 font-black text-xs uppercase tracking-widest block">Pasarela Segura</span>
+                                      <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-white">Elige cómo pagar</h3>
+                                      <p className="text-sm text-neutral-300 font-medium">Haz clic en el logotipo de tu billetera o banco para visualizar el código QR de pago en pantalla completa.</p>
+                                  </div>
+
+                                  {/* Rejilla de Logos Grandes y Libres para abrir QR (Cero cajas ni fondos invasivos) */}
+                                  <div className="grid grid-cols-2 gap-6 md:gap-8 py-6">
+                                      {PAYMENT_METHODS.map(method => (
+                                          <div 
+                                              key={method.id}
+                                              onClick={() => setActiveQrMethod(method)}
+                                              className="flex items-center justify-center p-8 h-32 md:h-40 rounded-[2.5rem] cursor-pointer transition-all transform hover:-translate-y-2 hover:shadow-2xl bg-neutral-900/40 border border-white/10 hover:bg-neutral-800/80 backdrop-blur-md"
+                                          >
+                                              {/* Logos de Métodos de Pago Gigantes */}
+                                              <img src={method.logo} alt={method.name} referrerPolicy="no-referrer" className="w-full h-full max-h-[80px] md:max-h-[100px] object-contain drop-shadow-md" />
+                                          </div>
+                                      ))}
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+              ) : (
+                  /* VISTA PRINCIPAL CUANDO NO ESTAMOS EN CHECKOUT */
+                  <>
+                      {/* SECCIÓN AUTO-SLIDER: MÉTODOS DE PAGO / COMUNIDAD (INTERCALADO CADA 4 SEGS) */}
+                      <section className={`py-12 px-6 md:px-12 border-b transition-colors duration-500 relative overflow-hidden h-[240px] md:h-[220px] ${
+                        themeMode === "light" ? "bg-slate-50 border-slate-200" : "bg-[#0b0b0e] border-white/5"
+                      }`}>
+                        
+                        {/* Slide 1: Medios de Pago Libres (Gigantes) */}
+                        <div className={`absolute inset-0 flex flex-col items-center justify-center w-full px-6 transition-opacity duration-1000 ${promoIndex === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}>
+                            <div className="space-y-1 mb-8 text-center">
+                              <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--text-main)]">Medios de Pago Soportados</h3>
+                            </div>
+                            <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 lg:gap-24 w-full">
+                              {PAYMENT_METHODS.map(method => (
+                                <img 
+                                  key={method.id} 
+                                  src={method.logo} 
+                                  alt={method.name} 
+                                  referrerPolicy="no-referrer" 
+                                  className="h-12 sm:h-16 md:h-20 lg:h-24 w-auto object-contain transition-transform hover:scale-110 drop-shadow-sm cursor-pointer" 
+                                />
+                              ))}
+                            </div>
+                        </div>
+
+                        {/* Slide 2: Sé parte de nuestra Comunidad */}
+                        <div className={`absolute inset-0 flex flex-col items-center justify-center w-full px-6 transition-opacity duration-1000 ${promoIndex === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}>
+                            <div className="space-y-3 mb-6 text-center max-w-2xl">
+                              <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--text-main)]">Sé parte de nuestra comunidad</h3>
+                              <p className="text-sm text-[var(--text-muted)]">Únete a nuestras redes para recibir promociones exclusivas y participar en sorteos increíbles.</p>
+                            </div>
+                            <div className="flex flex-col sm:flex-row justify-center items-center gap-5">
+                              {/* Botón Facebook (Azul Oficial) */}
+                              <a 
+                                  href="https://www.facebook.com/profile.php?id=61578347413295" 
+                                  target="_blank" rel="noopener noreferrer"
+                                  className="flex items-center justify-center gap-3 bg-[#1877F2] hover:bg-[#166fe5] text-white px-8 py-3.5 rounded-2xl font-black uppercase tracking-widest text-xs w-full sm:w-auto transition-transform hover:scale-105 shadow-xl shadow-blue-600/20"
+                              >
+                                  <svg className="h-5 w-5 fill-current text-white" viewBox="0 0 24 24">
+                                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                  </svg>
+                                  Página de Facebook
+                              </a>
+                              {/* Botón WhatsApp VIP (Verde Oficial) */}
+                              <a 
+                                  href="https://chat.whatsapp.com/GU9mxEeGn2LCGsUxsW9KiD?s=cl&p=a&mlu=1" 
+                                  target="_blank" rel="noopener noreferrer"
+                                  className="flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20ba53] text-white px-8 py-3.5 rounded-2xl font-black uppercase tracking-widest text-xs w-full sm:w-auto transition-transform hover:scale-105 shadow-xl shadow-emerald-500/20"
+                              >
+                                  <svg className="h-5 w-5 fill-current text-white" viewBox="0 0 24 24">
+                                      <path d="M12.005 0C5.378 0 .005 5.373.005 12.002c0 2.128.552 4.195 1.6 6.002L0 24l6.14-1.61c1.764.966 3.75 1.474 5.865 1.474 6.627 0 12-5.373 12-12.002S18.632 0 12.005 0zm0 21.84c-1.802 0-3.56-.484-5.11-1.402l-.367-.217-3.793.994.994-3.7-.238-.377a9.845 9.845 0 01-1.503-5.26c0-5.448 4.434-9.882 9.885-9.882 2.64 0 5.12 1.028 6.985 2.894 1.866 1.867 2.895 4.348 2.895 6.988 0 5.45-4.435 9.883-9.882 9.883zm5.418-7.397c-.297-.149-1.758-.867-2.03-.967-.272-.099-.47-.149-.668.149-.198.298-.767.967-.94 1.165-.173.198-.346.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.714.248-1.325.173-1.451-.074-.126-.272-.198-.57-.347z"/>
+                                  </svg>
+                                  Grupo VIP WhatsApp
+                              </a>
+                            </div>
+                        </div>
+
+                        {/* Indicadores de posición (Puntos de auto-slider) */}
+                        <div className="absolute bottom-4 w-full flex justify-center gap-1.5">
+                          {[0, 1].map((idx) => (
+                            <button key={idx} onClick={() => setPromoIndex(idx)} className={`h-1.5 rounded-full transition-all duration-300 ${idx === promoIndex ? "bg-[var(--text-muted)] w-4" : "bg-[var(--border-color)] w-1.5"}`} />
+                          ))}
+                        </div>
+                      </section>
+
+                      {/* SECCIÓN: TIENDA OFICIAL */}
+                      <section id="tienda-section" className="py-20 px-6 md:px-12">
+                        <div className="max-w-[1400px] mx-auto">
+                          
+                          {/* GRID DE PRODUCTOS RÉPLICA STREAMHUB */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {storeServices.map((service) => {
+                              const featuresList = getFeaturesList(service.features);
+                              const isAgotado = service.status === "Agotado" || service.badge?.toUpperCase() === "SIN STOCK";
+                              
+                              return (
+                                <div 
+                                  key={service.id} 
+                                  className={`premium-card rounded-3xl p-6 md:p-8 flex flex-col relative overflow-hidden h-full ${
+                                    themeMode === "light" 
+                                      ? "bg-white border border-slate-200/80 shadow-lg shadow-slate-100" 
+                                      : "bg-[#16161a] border-transparent"
+                                  } ${isAgotado ? 'opacity-80' : ''}`}
+                                  style={{ borderTopWidth: '5px', borderTopStyle: 'solid', borderTopColor: isAgotado ? '#404040' : service.color }}
+                                >
+                                  {(service.badge || isAgotado) && (
+                                    <div className={`absolute top-4 right-4 z-20 text-[9px] font-black uppercase px-2.5 py-1.5 rounded-md tracking-wider shadow-md ${
+                                      isAgotado 
+                                        ? "bg-neutral-800 border border-neutral-700 text-neutral-400" 
+                                        : (service.badge?.toUpperCase() === "OFERTA" 
+                                            ? "bg-gradient-to-r from-red-655 to-orange-500 text-white animate-pulse" 
+                                            : "bg-gradient-to-r from-blue-500 to-indigo-600 text-white")
+                                    }`}>
+                                      {isAgotado ? "SIN STOCK" : service.badge}
+                                    </div>
+                                  )}
+
+                                  <div className="h-10 mb-5 flex items-center justify-start brand-logo-container">
+                                    <PlatformLogo platform={service.name} sizeClass="h-8 md:h-10" shopCatalog={storeServices} isGrayscale={isAgotado} />
+                                  </div>
+
+                                  <div className="text-[11px] uppercase font-bold tracking-widest mb-1 text-[var(--text-muted)]">
+                                    {service.plan}
+                                  </div>
+
+                                  <div className="flex items-baseline gap-1 mb-8">
+                                    <span className="text-base font-bold text-[var(--text-muted)]">S/</span>
+                                    <span className="text-4xl md:text-5xl font-black tracking-tight text-[var(--text-main)]">{service.price}</span>
+                                    <span className="text-xs font-medium text-[var(--text-muted)] ml-1">/ mes</span>
+                                  </div>
+
+                                  <ul className="space-y-3.5 flex-grow mb-8">
+                                    {featuresList.map((feature, i) => (
+                                      <li key={i} className="flex items-start gap-3 text-sm font-medium opacity-90 text-[var(--text-main)]">
+                                        <span className="text-lg leading-none mt-[-2px]" style={{ color: isAgotado ? '#606060' : service.color }}>•</span>
+                                        <span className="leading-snug">{feature}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+
+                                  {/* Botón de compra conectado al Checkout View Paso 2 */}
+                                  <button 
+                                    onClick={() => {
+                                      setSelectedCheckoutService(service);
+                                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }}
+                                    className="w-full py-4 rounded-xl font-black text-sm uppercase transition-all hover:brightness-110 shadow-lg text-center block"
+                                    style={{ 
+                                      backgroundColor: isAgotado ? '#2e2e33' : service.color, 
+                                      color: isAgotado ? '#8a8a93' : (service.btnText || '#ffffff'),
+                                      border: isAgotado ? '1px solid #43434d' : 'none'
+                                    }}
+                                  >
+                                    {isAgotado ? "Consultar Stock ⚡" : "Adquirir Cuenta"}
+                                  </button>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </section>
+                  </>
+              )}
+
+              {/* FOOTER */}
+              <footer className="py-12 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                <div className="text-center text-sm font-medium opacity-60 text-[var(--text-main)]">
+                  <p>© {new Date().getFullYear()} FSNFLIX - Portal de Streaming Premium de Alta Fidelidad.</p>
+                </div>
+              </footer>
+
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

@@ -8,14 +8,17 @@
       "name": "Netflix",
       "color": "#E50914",
       "plan": "Plan Premium 4K",
-      "price": "24.90",
+      "price": "13.00",
       "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
       "features": [
         "Calidad 4K HDR",
         "Perfiles estables con PIN",
-        "Evasión de bloqueo de hogar"
+        "Evasión de bloqueo de hogar",
+        "Mundial"
       ],
-      "btnText": "#ffffff"
+      "btnText": "#ffffff",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "disney",
@@ -29,7 +32,9 @@
         "Deportes por ESPN",
         "Resolución 1080p"
       ],
-      "btnText": "#ffffff"
+      "btnText": "#ffffff",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "max",
@@ -43,7 +48,9 @@
         "Estabilidad garantizada",
         "Resolución Full HD"
       ],
-      "btnText": "#ffffff"
+      "btnText": "#ffffff",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "prime",
@@ -57,7 +64,9 @@
         "Calidad 4K HDR",
         "Sin anuncios"
       ],
-      "btnText": "#000000"
+      "btnText": "#000000",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "crunchyroll",
@@ -71,7 +80,9 @@
         "Episodios estreno simultáneo",
         "Catálogo completo de anime"
       ],
-      "btnText": "#000000"
+      "btnText": "#000000",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "spotify",
@@ -85,7 +96,9 @@
         "Escucha sin conexión",
         "Audio de alta calidad"
       ],
-      "btnText": "#000000"
+      "btnText": "#000000",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "youtube",
@@ -99,7 +112,9 @@
         "YouTube Music incluido",
         "Reproducción en 2do plano"
       ],
-      "btnText": "#ffffff"
+      "btnText": "#ffffff",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "paramount",
@@ -113,7 +128,9 @@
         "Deportes en vivo",
         "Contenido de Nickelodeon"
       ],
-      "btnText": "#ffffff"
+      "btnText": "#ffffff",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "vix",
@@ -127,7 +144,9 @@
         "Liga Española",
         "Telenovelas premium"
       ],
-      "btnText": "#ffffff"
+      "btnText": "#ffffff",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "canva",
@@ -141,7 +160,9 @@
         "Plantillas infinitas",
         "Activación en tu propio correo"
       ],
-      "btnText": "#000000"
+      "btnText": "#000000",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "magis",
@@ -155,7 +176,9 @@
         "Deportes PPV en directo",
         "Catálogo de películas integrado"
       ],
-      "btnText": "#000000"
+      "btnText": "#000000",
+      "status": "Disponible",
+      "badge": ""
     },
     {
       "id": "appletv",
@@ -169,7 +192,9 @@
         "Calidad visual premium",
         "Alta fidelidad"
       ],
-      "btnText": "#000000"
+      "btnText": "#000000",
+      "status": "Disponible",
+      "badge": ""
     }
   ]
 }

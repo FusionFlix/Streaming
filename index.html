@@ -81,9 +81,9 @@
     <script type="text/babel">
         const { useState, useEffect, useRef, useCallback } = React;
 
-        // ENDPOINTS DIRECTOS EN GITHUB SIN CACHÉ
-        const GITHUB_MOVIES_URL = "https://raw.githubusercontent.com/DRAKENVOLK/FNSFLIX/main/peliculas.json";
-        const GITHUB_STORE_URL = "https://raw.githubusercontent.com/DRAKENVOLK/FNSFLIX/main/tienda_config.json";
+        // ENDPOINTS ACTUALIZADOS DIRECTOS DE TU NUEVO GITHUB (FusionFlix / Streaming)
+        const GITHUB_MOVIES_URL = "https://raw.githubusercontent.com/FusionFlix/Streaming/main/peliculas.json";
+        const GITHUB_STORE_URL = "https://raw.githubusercontent.com/FusionFlix/Streaming/main/tienda_config.json";
         const WHATSAPP_PHONE = "51986193615";
 
         // ================= DATOS DE RESPALDO OFFLINE (FALLBACK) =================
@@ -209,7 +209,7 @@
           const touchStartX = useRef(null);
           const touchEndX = useRef(null);
 
-          // === DOBLE SINCRONIZACIÓN AUTOMÁTICA DESDE GITHUB ===
+          // === DOBLE SINCRONIZACIÓN AUTOMÁTICA DESDE TU REPOSITORIO DE GITHUB ===
           useEffect(() => {
             const fetchAllData = async () => {
               const timestamp = new Date().getTime();
@@ -322,8 +322,8 @@
             touchEndX.current = null;
           };
 
-          const currentMovie = movies[currentIndex] || DEFAULT_MOVIES[0];
-          const activeTheme = PLATFORM_THEMES[currentMovie?.platform] || { brandColor: "from-neutral-600 to-neutral-800", accentBg: "bg-neutral-600", borderActive: "border-neutral-600" };
+          const currentMovie = movies[currentIndex] || BACKUP_MOVIES[0];
+          const activeTheme = PLATFORM_THEMES[currentMovie?.platform] || PLATFORM_THEMES["Netflix"];
 
           // MENSAJE DE WHATSAPP DINÁMICO
           const getWaMessage = () => {
@@ -337,7 +337,7 @@
           return (
             <div className="min-h-screen relative transition-colors duration-500">
               
-              {/* MODAL DEL CÓDIGO QR EN PANTALLA COMPLETA (LIGHTBOX TOTALMENTE AJUSTADO A 1 SOLA PÁGINA) */}
+              {/* MODAL DEL CÓDIGO QR EN PANTALLA COMPLETA (LIGHTBOX INTEGRAL SIN DESPLIEGUES) */}
               {activeQrMethod && (
                   <div className="fixed inset-0 z-[200] flex flex-col items-center justify-center p-4 bg-black/95 backdrop-blur-2xl animate-fade-in overflow-hidden h-screen w-screen">
                       
@@ -351,16 +351,16 @@
                           </svg>
                       </button>
 
-                      <div className="w-full max-w-xl flex flex-col items-center justify-center h-full max-h-full py-4 text-center">
+                      <div className="w-full max-w-xl flex flex-col items-center justify-between h-full max-h-[85vh] py-4 text-center">
                           
                           {/* Título del QR (Muy compacto para móvil) */}
-                          <div className="space-y-1 mb-4 flex-shrink-0">
+                          <div className="space-y-1 mb-2 flex-shrink-0">
                               <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-wider">Escanea y Paga</h3>
                               <p className="text-neutral-400 text-xs md:text-sm max-w-sm mx-auto px-4">{activeQrMethod.instructions}</p>
                           </div>
 
-                          {/* QRs Libres y Expandidos (Se escalan dinámicamente según la pantalla para entrar siempre enteros) */}
-                          <div className="flex flex-row items-center justify-center gap-4 md:gap-8 w-full max-h-[45vh] md:max-h-[50vh] overflow-hidden flex-shrink py-2">
+                          {/* QRs Libres y Expandidos (Se escalan de forma flexible para entrar enteros siempre) */}
+                          <div className="flex flex-row items-center justify-center gap-4 md:gap-8 w-full max-h-[42vh] md:max-h-[48vh] overflow-hidden flex-shrink py-2">
                               {activeQrMethod.qrs.map((qr, i) => (
                                   <img 
                                       key={i}
@@ -372,13 +372,13 @@
                               ))}
                           </div>
 
-                          {/* ÚNICO Botón Verde Oficial de WhatsApp (SIN PRECIO, SOLO CONTACTO, MAESTRO Y TOTALMENTE VISIBLE) */}
-                          <div className="w-full max-w-md px-4 mt-4 flex-shrink-0">
+                          {/* ÚNICO Botón Verde Oficial de WhatsApp (Siempre visible en 1 sola pantalla) */}
+                          <div className="w-full max-w-md px-4 mt-2 flex-shrink-0">
                               <a 
                                   href={`https://wa.me/${WHATSAPP_PHONE}?text=${getWaMessage()}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="w-full py-3.5 md:py-4 bg-[#25D366] hover:bg-[#20ba53] text-white font-black text-xs md:text-sm uppercase tracking-widest rounded-2xl transition-transform transform hover:-translate-y-0.5 shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-2 active:scale-95"
+                                  className="w-full py-4 bg-[#25D366] hover:bg-[#20ba53] text-white font-black text-xs md:text-sm uppercase tracking-widest rounded-2xl transition-transform transform hover:-translate-y-0.5 shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-2 active:scale-95"
                               >
                                   <svg className="h-5 w-5 fill-current text-white" viewBox="0 0 24 24">
                                       <path d="M12.005 0C5.378 0 .005 5.373.005 12.002c0 2.128.552 4.195 1.6 6.002L0 24l6.14-1.61c1.764.966 3.75 1.474 5.865 1.474 6.627 0 12-5.373 12-12.002S18.632 0 12.005 0zm0 21.84c-1.802 0-3.56-.484-5.11-1.402l-.367-.217-3.793.994.994-3.7-.238-.377a9.845 9.845 0 01-1.503-5.26c0-5.448 4.434-9.882 9.885-9.882 2.64 0 5.12 1.028 6.985 2.894 1.866 1.867 2.895 4.348 2.895 6.988 0 5.45-4.435 9.883-9.882 9.883zm5.418-7.397c-.297-.149-1.758-.867-2.03-.967-.272-.099-.47-.149-.668.149-.198.298-.767.967-.94 1.165-.173.198-.346.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.714.248-1.325.173-1.451-.074-.126-.272-.198-.57-.347z"/>
@@ -434,7 +434,7 @@
                 </header>
               )}
 
-              {/* SLIDER SUPERIOR CINEMÁTICO (SE ADAPTA AL CHECKOUT PARA SER FONDO VISIBLE E INMERSIVO CONTINUO) */}
+              {/* SLIDER SUPERIOR CINEMÁTICO (Fondo inmersivo continuo en checkout) */}
               <section 
                 className={`${
                     selectedCheckoutService 
@@ -466,7 +466,7 @@
                         }}
                       />
                       
-                      {/* Oclusión dinámica: Si estamos en checkout, desenfoca la película de forma inmersiva */}
+                      {/* Oclusión dinámica: Si estamos en checkout, desenfoca de forma inmersiva */}
                       <div className={`absolute inset-0 transition-colors duration-700 ${
                           selectedCheckoutService 
                             ? 'bg-black/65 backdrop-blur-md'
@@ -479,7 +479,7 @@
                   );
                 })}
 
-                {/* ELEMENTOS DEL SLIDER (SOLO VISIBLES SI NO ESTAMOS EN CHECKOUT) */}
+                {/* ELEMENTOS DEL SLIDER (SOLO SI NO ESTAMOS EN CHECKOUT) */}
                 {!selectedCheckoutService && movies.length > 0 && (
                   <>
                     <div className={`absolute bottom-0 left-0 w-2/3 h-2/3 rounded-full filter blur-[140px] opacity-20 pointer-events-none transition-all duration-1000 bg-gradient-to-br ${activeTheme.brandColor} z-10`} />
@@ -496,7 +496,7 @@
                             {currentMovie?.type}
                           </span>
                           <span className="text-sm font-semibold flex items-center gap-1.5 px-3 py-1 rounded-md border backdrop-blur-md bg-black/60 border-neutral-800 text-neutral-200">
-                            <span className="text-yellow-500 text-base">★</span> {currentMovie?.rating}
+                            <span className="text-yellow-500 text-base">★</span> {currentMovie?.rating?.toFixed(1)}
                           </span>
                           <span className="text-sm font-bold text-neutral-350 text-shadow-cinematic">
                             {currentMovie?.releaseYear}
@@ -543,25 +543,25 @@
                 )}
               </section>
 
-              {/* RENDERIZADO SPA PASO 2: VISTA DE CHECKOUT SOBRE EL SLIDER INMERSIVO EN SEGUNDO PLANO */}
+              {/* RENDERIZADO SPA PASO 2: VISTA DE CHECKOUT EN SEGUNDO PLANO */}
               {selectedCheckoutService ? (
                   <div className="relative z-10 pt-28 pb-16 px-6 md:px-12 animate-fade-in min-h-screen flex flex-col justify-center">
                       <div className="max-w-7xl mx-auto space-y-8 w-full">
                           
-                          {/* SECCIÓN SUPERIOR DE COMPRA: CANCELAR PEDIDO + SÉ PARTE DE NUESTRA COMUNIDAD (Móvil-Friendly en 1 Línea) */}
+                          {/* SECCIÓN SUPERIOR DE COMPRA: CANCELAR PEDIDO + SÉ PARTE DE NUESTRA COMUNIDAD (En 1 Línea Móvil) */}
                           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-neutral-900/70 border border-white/5 backdrop-blur-md p-4 rounded-3xl shadow-xl w-full">
                               {/* Botón de Retorno */}
                               <button 
                                   onClick={() => setSelectedCheckoutService(null)}
-                                  className="flex items-center gap-2.5 text-xs font-black uppercase tracking-widest text-white transition-all bg-neutral-955/60 hover:bg-neutral-900/80 border border-neutral-700/50 px-5 py-3 rounded-2xl hover:-translate-x-1 active:scale-95"
+                                  className="flex items-center gap-2.5 text-xs font-black uppercase tracking-widest text-white transition-all bg-neutral-950/60 hover:bg-neutral-900/80 border border-neutral-700/50 px-5 py-3 rounded-2xl hover:-translate-x-1 active:scale-95 shrink-0"
                               >
                                   ← Cancelar Pedido
                               </button>
 
-                              {/* Barra de Redes Sociales "Sé parte de nuestra comunidad" (Compacta y en una Sola Línea) */}
+                              {/* Barra de Redes Sociales "Sé parte de nuestra comunidad" (Compacta) */}
                               <div className="flex items-center gap-3 overflow-x-auto no-scrollbar max-w-full w-full sm:w-auto">
                                   <span className="text-xs font-black uppercase tracking-wider text-neutral-350 whitespace-nowrap hidden md:inline-block">
-                                      🔥 Sé parte de nuestra comunidad:
+                                      🔥 Únete a nuestra comunidad:
                                   </span>
                                   <div className="flex items-center gap-2 select-none w-full sm:w-auto justify-start sm:justify-end overflow-x-auto no-scrollbar">
                                       {/* Página de Facebook */}
@@ -570,7 +570,7 @@
                                           target="_blank" rel="noopener noreferrer"
                                           className="flex items-center justify-center gap-2 bg-[#1877F2] hover:bg-[#166fe5] text-white px-4 py-2.5 rounded-xl font-black uppercase text-[10px] tracking-widest transition-transform hover:scale-105 shadow-md shadow-blue-600/10 active:scale-95 shrink-0"
                                       >
-                                          <svg className="h-4.5 w-4.5 fill-current text-white" viewBox="0 0 24 24">
+                                          <svg className="h-4 w-4 fill-current text-white" viewBox="0 0 24 24">
                                               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                                           </svg>
                                           Facebook
@@ -582,7 +582,7 @@
                                           target="_blank" rel="noopener noreferrer"
                                           className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba53] text-white px-4 py-2.5 rounded-xl font-black uppercase text-[10px] tracking-widest transition-transform hover:scale-105 shadow-md shadow-emerald-500/10 active:scale-95 shrink-0"
                                       >
-                                          <svg className="h-4.5 w-4.5 fill-current text-white" viewBox="0 0 24 24">
+                                          <svg className="h-4 w-4 fill-current text-white" viewBox="0 0 24 24">
                                               <path d="M12.005 0C5.378 0 .005 5.373.005 12.002c0 2.128.552 4.195 1.6 6.002L0 24l6.14-1.61c1.764.966 3.75 1.474 5.865 1.474 6.627 0 12-5.373 12-12.002S18.632 0 12.005 0zm0 21.84c-1.802 0-3.56-.484-5.11-1.402l-.367-.217-3.793.994.994-3.7-.238-.377a9.845 9.845 0 01-1.503-5.26c0-5.448 4.434-9.882 9.885-9.882 2.64 0 5.12 1.028 6.985 2.894 1.866 1.867 2.895 4.348 2.895 6.988 0 5.45-4.435 9.883-9.882 9.883zm5.418-7.397c-.297-.149-1.758-.867-2.03-.967-.272-.099-.47-.149-.668.149-.198.298-.767.967-.94 1.165-.173.198-.346.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.714.248-1.325.173-1.451-.074-.126-.272-.198-.57-.347z"/>
                                           </svg>
                                           WhatsApp
@@ -594,7 +594,7 @@
                                           target="_blank" rel="noopener noreferrer"
                                           className="flex items-center justify-center gap-2 bg-[#010101] hover:bg-[#111] border border-neutral-800 text-white px-4 py-2.5 rounded-xl font-black uppercase text-[10px] tracking-widest transition-transform hover:scale-105 shadow-md shadow-black/40 ring-1 ring-[#FE2C55]/30 active:scale-95 shrink-0"
                                       >
-                                          <svg className="h-4.5 w-4.5 fill-current text-white" viewBox="0 0 24 24">
+                                          <svg className="h-4 w-4 fill-current text-white" viewBox="0 0 24 24">
                                               <path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.81-.74-3.94-1.69-.22-.19-.42-.38-.62-.59v7.02c.02 4.39-3.18 8.41-7.61 9.07-4.58.74-9.22-2.1-10.45-6.55C-1.57 12.92.83 7.8 5.2 6.13c1.23-.47 2.57-.59 3.86-.34v4.18c-1.34-.33-2.82-.09-3.95.74-.95.69-1.48 1.83-1.48 3.01.01 2.21 2 4.02 4.21 3.99 2.25-.03 4.02-1.92 3.99-4.17V0c.23.02.47.02.7.02z" />
                                           </svg>
                                           TikTok
@@ -640,7 +640,7 @@
                                           href={`https://wa.me/${WHATSAPP_PHONE}?text=${getWaMessage()}`}
                                           target="_blank"
                                           rel="noopener noreferrer"
-                                          className="w-full py-4.5 bg-[#25D366] hover:bg-[#20ba53] text-white font-black text-sm uppercase tracking-widest rounded-2xl transition-all shadow-xl shadow-emerald-500/20 text-center flex items-center justify-center gap-3 transform hover:-translate-y-1 active:scale-95"
+                                          className="w-full py-4 bg-[#25D366] hover:bg-[#20ba53] text-white font-black text-sm uppercase tracking-widest rounded-2xl transition-all shadow-xl shadow-emerald-500/20 text-center flex items-center justify-center gap-3 transform hover:-translate-y-1 active:scale-95"
                                       >
                                           <svg className="h-6 w-6 fill-current text-white" viewBox="0 0 24 24">
                                               <path d="M12.005 0C5.378 0 .005 5.373.005 12.002c0 2.128.552 4.195 1.6 6.002L0 24l6.14-1.61c1.764.966 3.75 1.474 5.865 1.474 6.627 0 12-5.373 12-12.002S18.632 0 12.005 0zm0 21.84c-1.802 0-3.56-.484-5.11-1.402l-.367-.217-3.793.994.994-3.7-.238-.377a9.845 9.845 0 01-1.503-5.26c0-5.448 4.434-9.882 9.885-9.882 2.64 0 5.12 1.028 6.985 2.894 1.866 1.867 2.895 4.348 2.895 6.988 0 5.45-4.435 9.883-9.882 9.883zm5.418-7.397c-.297-.149-1.758-.867-2.03-.967-.272-.099-.47-.149-.668.149-.198.298-.767.967-.94 1.165-.173.198-.346.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.714.248-1.325.173-1.451-.074-.126-.272-.198-.57-.347z"/>

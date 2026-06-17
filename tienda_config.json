@@ -1,6 +1,10 @@
 {
   "globalSettings": {
-    "slideSpeed": 2000
+    "slideSpeed": 2000,
+    "whatsappPhone": "51986193615",
+    "logoType": "text",
+    "logoText": "FSNFLIX",
+    "logoUrl": ""
   },
   "services": [
     {
@@ -196,5 +200,59 @@
       "status": "Disponible",
       "badge": ""
     }
-  ]
+  ],
+  "paymentMethods": [
+    {
+      "id": "binance",
+      "name": "Binance",
+      "logo": "https://i.imgur.com/k0FBADb.png",
+      "qrs": [
+        "https://i.imgur.com/j6JGfiL.png",
+        ""
+      ],
+      "instructions": "Abre Binance Pay y escanea el código QR oficial de pago."
+    },
+    {
+      "id": "prexpe",
+      "name": "Prexpe",
+      "logo": "https://i.imgur.com/hYH6MS2.png",
+      "qrs": [
+        "https://i.imgur.com/zPVSWGu.png",
+        ""
+      ],
+      "instructions": "Transfiere de inmediato escaneando nuestro código QR de Prex."
+    },
+    {
+      "id": "yape",
+      "name": "Yape",
+      "logo": "https://i.imgur.com/xmJIlY1.png",
+      "qrs": [
+        "https://i.imgur.com/BJM8hDH.png",
+        "https://i.imgur.com/eihEzag.png"
+      ],
+      "instructions": "Escanea cualquiera de nuestros códigos QR de Yape desde tu celular."
+    },
+    {
+      "id": "plin",
+      "name": "Plin",
+      "logo": "https://i.imgur.com/39r84Q8.png",
+      "qrs": [
+        "https://i.imgur.com/BJM8hDH.png",
+        "https://i.imgur.com/eihEzag.png"
+      ],
+      "instructions": "Escanea el QR interoperable para transferir directamente a nuestro Plin."
+    }
+  ],
+  "socials": {
+    "whatsappGroup": "https://chat.whatsapp.com/GU9mxEeGn2LCGsUxsW9KiD?s=cl&p=a&mlu=1",
+    "facebook": "https://www.facebook.com/profile.php?id=61578347413295",
+    "tiktok": "https://www.tiktok.com/@fusionflix2.1?_r=1&_t=ZS-97DD8LHaJzc"
+  },
+  "metaTags": {
+    "title": "FSNFLIX | Tu Portal de Streaming Premium",
+    "description": "Adquiere cuentas de streaming estables y garantizadas de Netflix, Disney+, Prime Video, Max y más.",
+    "keywords": "streaming premium, netflix barato peru, yape, plin, binance pay, fusionflix",
+    "ogImage": "https://image.tmdb.org/t/p/w1280/56v2dnL56CNm6CHgmqXfw88llm6.jpg",
+    "ogTitle": "FSNFLIX | Cuentas Streaming 4K 8K"
+  }
 }

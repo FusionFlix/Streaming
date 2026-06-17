@@ -78,6 +78,7 @@
 <body class="theme-dark overflow-x-hidden selection:bg-red-650 selection:text-white">
     <div id="root"></div>
 
+    <!-- Script de Babel configurado explícitamente con presets para evitar imports automáticos ESM -->
     <script type="text/babel" data-presets="env,react">
         const { useState, useEffect, useRef, useCallback } = React;
 
@@ -89,7 +90,7 @@
         const BACKUP_MOVIES = [
           {
             id: "st-5", title: "Stranger Things 5", platform: "Netflix", type: "Serie de TV",
-            overview: "La temporada final donde el grupo se enfrenta al enigma definitivo del Upside Down para salvar a Hawkins de una vez por todas.",
+            overview: "La temporada final donde el grupo se enfrenta al enigma definitivo del Upside Down.",
             rating: 8.9, releaseYear: "2026", duration: "Temporada Final", genres: ["Ciencia Ficción", "Drama"],
             backdropUrl: "https://image.tmdb.org/t/p/w1280/56v2dnL56CNm6CHgmqXfw88llm6.jpg"
           }
@@ -99,15 +100,7 @@
             { id: 'netflix', name: 'Netflix', color: '#E50914', plan: 'Plan Premium 4K', price: '24.90', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg', features: 'Calidad 4K HDR\nPerfiles estables con PIN\nEvasión de bloqueo de hogar', btnText: '#ffffff', status: 'Disponible', badge: '' },
             { id: 'disney', name: 'Disney+', color: '#0063E5', plan: 'Plan Estándar', price: '15.90', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg', features: 'Disney, Pixar y Marvel\nDeportes por ESPN\nResolución 1080p', btnText: '#ffffff', status: 'Disponible', badge: '' },
             { id: 'max', name: 'Max', color: '#002BE7', plan: 'Plan Platino', price: '18.90', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Max_logo.svg', features: 'Catálogo de HBO y DC\nEstabilidad garantizada\nResolución Full HD', btnText: '#ffffff', status: 'Disponible', badge: '' },
-            { id: 'prime', name: 'Prime Video', color: '#00A8E1', plan: 'Plan Mensual', price: '12.90', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png', features: 'Series originales de Amazon\n3 dispositivos simultáneos\nCalidad 4K HDR\nSin anuncios', btnText: '#000000', status: 'Disponible', badge: '' },
-            { id: 'crunchyroll', name: 'Crunchyroll', color: '#F47521', plan: 'Mega Fan', price: '12.00', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Crunchyroll_Logo.png', features: 'Sin publicidad\nEpisodios estreno simultáneo\nCatálogo completo de anime', btnText: '#000000', status: 'Disponible', badge: '' },
-            { id: 'spotify', name: 'Spotify', color: '#1DB954', plan: 'Premium Individual', price: '14.90', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg', features: 'Música sin anuncios\nEscucha sin conexión\nAudio de alta calidad', btnText: '#000000', status: 'Disponible', badge: 'Oferta' },
-            { id: 'youtube', name: 'YouTube', color: '#FF0000', plan: 'Premium Familiar', price: '16.90', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg', features: 'Videos sin anuncios\nYouTube Music Premium\nReproducción en segundo plano', btnText: '#ffffff', status: 'Disponible', badge: '' },
-            { id: 'paramount', name: 'Paramount+', color: '#0064FF', plan: 'Plan Básico', price: '10.90', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Paramount_Plus.svg', features: 'Películas de éxito\nDeportes en vivo\nContenido de Nickelodeon', btnText: '#ffffff', status: 'Disponible', badge: '' },
-            { id: 'appletv', name: 'Apple TV+', color: '#ffffff', plan: 'Plan Mensual', price: '15.00', logoUrl: 'https://1000logos.net/wp-content/uploads/2022/02/Apple-TV-Logo-1.png', features: 'Producciones originales Apple\nCalidad visual de alta gama\nAlta fidelidad', btnText: '#000000', status: 'Disponible', badge: '' },
-            { id: 'vix', name: 'ViX Premium', color: '#FF6B00', plan: 'Plan Mensual', price: '18.00', logoUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/01/ViX_logo-1-H-2024.jpg', features: 'Liga MX en vivo\nLiga Española exclusiva\nTelenovelas premium', btnText: '#ffffff', status: 'Disponible', badge: '' },
-            { id: 'canva', name: 'Canva Pro', color: '#00C4CC', plan: 'Educativo / Equipos', price: '10.00', logoUrl: 'https://edudigital.pro/wp-content/uploads/2024/03/CANVAPRO.png', features: 'Herramientas Pro de diseño\nPlantillas infinitas\nActivación en tu propio correo', btnText: '#000000', status: 'Disponible', badge: '' },
-            { id: 'magis', name: 'Magis TV', color: '#FFD700', plan: 'Panel IPTV', price: '20.00', logoUrl: 'https://magisstvapp.com/wp-content/uploads/2026/03/cropped-magiss-tv-app-logo-02-01.png', features: 'Canales en vivo Full HD\nDeportes PPV desbloqueados\nCatálogo de películas VOD', btnText: '#000000', status: 'Disponible', badge: 'RECOMENDADO' }
+            { id: 'prime', name: 'Prime Video', color: '#00A8E1', plan: 'Plan Mensual', price: '12.90', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png', features: 'Series originales de Amazon\n3 dispositivos simultáneos\nCalidad 4K HDR\nSin anuncios', btnText: '#000000', status: 'Disponible', badge: '' }
         ];
 
         const BACKUP_PAYMENTS = [
@@ -133,14 +126,14 @@
         };
 
         const PLATFORM_THEMES = {
-          "Netflix": { brandColor: "from-red-600 to-red-800", textColor: "text-red-500", borderActive: "border-red-655", badgeBg: "bg-red-950/70 text-red-300 border-red-900/50" },
-          "Disney+": { brandColor: "from-cyan-500 to-blue-600", textColor: "text-cyan-400", borderActive: "border-cyan-500", badgeBg: "bg-cyan-950/70 text-cyan-300 border-cyan-900/50" },
-          "Crunchyroll": { brandColor: "from-amber-500 to-orange-600", textColor: "text-amber-500", borderActive: "border-amber-500", badgeBg: "bg-amber-950/70 text-amber-300 border-amber-800" },
-          "Max": { brandColor: "from-indigo-600 to-purple-800", textColor: "text-indigo-400", borderActive: "border-indigo-600", badgeBg: "bg-indigo-950/70 text-indigo-300 border-indigo-900/50" },
-          "Prime Video": { brandColor: "from-sky-400 to-blue-500", textColor: "text-sky-400", borderActive: "border-sky-500", badgeBg: "bg-sky-950/70 text-sky-300 border-sky-900/50" },
-          "Apple TV+": { brandColor: "from-neutral-400 to-neutral-600", textColor: "text-neutral-400", borderActive: "border-neutral-400", badgeBg: "bg-neutral-900/70 text-neutral-350 border-neutral-700/50" },
-          "ViX Premium": { brandColor: "from-orange-500 to-orange-700", textColor: "text-orange-500", borderActive: "border-orange-600", badgeBg: "bg-orange-950/70 text-orange-300 border-orange-900/50" },
-          "Magis TV": { brandColor: "from-yellow-500 to-yellow-700", textColor: "text-yellow-500", borderActive: "border-yellow-500", badgeBg: "bg-yellow-950/70 text-yellow-300 border-yellow-900/50" }
+          "Netflix": { brandColor: "from-red-600 to-red-800", textColor: "text-red-500", borderActive: "border-red-655", accentBg: "bg-red-600", badgeBg: "bg-red-950/70 text-red-300 border-red-900/50" },
+          "Disney+": { brandColor: "from-cyan-500 to-blue-600", textColor: "text-cyan-400", borderActive: "border-cyan-500", accentBg: "bg-cyan-500", badgeBg: "bg-cyan-950/70 text-cyan-300 border-cyan-900/50" },
+          "Crunchyroll": { brandColor: "from-amber-500 to-orange-600", textColor: "text-amber-500", borderActive: "border-amber-500", accentBg: "bg-amber-500", badgeBg: "bg-amber-950/70 text-amber-300 border-amber-800" },
+          "Max": { brandColor: "from-indigo-600 to-purple-800", textColor: "text-indigo-400", borderActive: "border-indigo-600", accentBg: "bg-indigo-650", badgeBg: "bg-indigo-950/70 text-indigo-300 border-indigo-900/50" },
+          "Prime Video": { brandColor: "from-sky-400 to-blue-500", textColor: "text-sky-400", borderActive: "border-sky-500", accentBg: "bg-sky-500", badgeBg: "bg-sky-950/70 text-sky-300 border-sky-900/50" },
+          "Apple TV+": { brandColor: "from-neutral-400 to-neutral-600", textColor: "text-neutral-400", borderActive: "border-neutral-400", accentBg: "bg-neutral-300", badgeBg: "bg-neutral-900/70 text-neutral-350 border-neutral-700/50" },
+          "ViX Premium": { brandColor: "from-orange-500 to-orange-700", textColor: "text-orange-500", borderActive: "border-orange-600", accentBg: "bg-orange-600", badgeBg: "bg-orange-950/70 text-orange-300 border-orange-900/50" },
+          "Magis TV": { brandColor: "from-yellow-500 to-yellow-700", textColor: "text-yellow-500", borderActive: "border-yellow-500", accentBg: "bg-yellow-500", badgeBg: "bg-yellow-950/70 text-yellow-300 border-yellow-900/50" }
         };
 
         const getFeaturesList = (features) => {
@@ -230,7 +223,7 @@
                     if (Array.isArray(data.services) && data.services.length > 0) {
                       setStoreServices(data.services);
                     }
-                    // Configuración de Pasarela y Códigos QR
+                    // Configuración de Pasarela y Códigos QR (Soporta número ilimitado)
                     if (Array.isArray(data.paymentMethods) && data.paymentMethods.length > 0) {
                       setPaymentMethods(data.paymentMethods);
                     }
@@ -480,12 +473,12 @@
                 </header>
               )}
 
-              {/* SLIDER SUPERIOR CINEMÁTICO */}
+              {/* SLIDER SUPERIOR CINEMÁTICO (RÉPLICA DEL GENERADOR: ALTURA 60vh Y ESTILO LIMPIO) */}
               <section 
                 className={`${
                     selectedCheckoutService 
                     ? 'fixed inset-0 z-0 h-screen' 
-                    : 'relative w-full h-[75vh] min-h-[550px] md:h-[85vh] block overflow-hidden bg-black select-none'
+                    : 'relative w-full h-[55vh] min-h-[450px] md:h-[60vh] flex items-end overflow-hidden bg-black select-none'
                 } transition-all duration-700`}
                 onTouchStart={!selectedCheckoutService ? handleTouchStart : undefined}
                 onTouchMove={!selectedCheckoutService ? handleTouchMove : undefined}
@@ -512,15 +505,15 @@
                         }}
                       />
                       
-                      {/* Oclusión dinámica: Si estamos en checkout, desenfoca de forma inmersiva */}
+                      {/* Oclusión dinámica */}
                       <div className={`absolute inset-0 transition-colors duration-700 ${
                           selectedCheckoutService 
                             ? 'bg-black/65 backdrop-blur-md'
                             : (themeMode === "light" 
-                                ? "bg-gradient-to-t from-slate-50 via-black/35 to-black/20" 
-                                : "bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-black/35")
+                                ? "bg-gradient-to-t from-slate-50 via-black/40 to-transparent" 
+                                : "bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent")
                       }`} />
-                      {!selectedCheckoutService && <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-neutral-950/45 to-transparent" />}
+                      {!selectedCheckoutService && <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/20 to-transparent" />}
                     </div>
                   );
                 })}
@@ -530,60 +523,35 @@
                   <>
                     <div className={`absolute bottom-0 left-0 w-2/3 h-2/3 rounded-full filter blur-[140px] opacity-20 pointer-events-none transition-all duration-1000 bg-gradient-to-br ${activeTheme.brandColor} z-10`} />
 
-                    {/* LOGO DE PLATAFORMA FLOTANTE TRANSPARENTE EN ESQUINA INFERIOR DERECHA */}
-                    <div className="absolute bottom-16 right-6 md:right-12 z-35 animate-fade-in pointer-events-none hidden sm:block">
-                      <PlatformLogo platform={currentMovie?.platform} sizeClass="h-10 md:h-14 lg:h-16" shopCatalog={storeServices} />
-                    </div>
-
-                    {/* CORRECCIÓN DE OVERLAP DE TEXTO Y CHROME BUG */}
-                    <div className="absolute inset-0 z-20 flex flex-col justify-end w-full max-w-7xl mx-auto px-6 md:px-12 pb-24 md:pb-36 animate-fade-in text-white pointer-events-none">
-                      <div className="max-w-3xl space-y-4 md:space-y-5 text-left pointer-events-auto">
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="bg-red-655/90 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded border border-red-900/50">
-                            {currentMovie?.type}
-                          </span>
-                          <span className="text-sm font-semibold flex items-center gap-1.5 px-3 py-1 rounded-md border backdrop-blur-md bg-black/60 border-neutral-800 text-neutral-200">
-                            <span className="text-yellow-500 text-base">★</span> {currentMovie?.rating?.toFixed(1)}
-                          </span>
-                          <span className="text-sm font-bold text-neutral-350 text-shadow-cinematic">
-                            {currentMovie?.releaseYear}
-                          </span>
-                          <span className="text-sm font-bold text-neutral-350 text-shadow-cinematic">
-                            {currentMovie?.duration}
-                          </span>
-                        </div>
-                        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none uppercase select-none text-white text-shadow-cinematic">
+                    {/* CORRECCIÓN DE OVERLAP DE TEXTO - ESTILO GENERADOR (Limpio y directo) */}
+                    <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-end h-full pb-16 pt-24 animate-fade-in text-white pointer-events-none">
+                      <div className="max-w-2xl space-y-3 pointer-events-auto">
+                        <PlatformLogo platform={currentMovie?.platform} sizeClass="h-8 md:h-10 mb-2 drop-shadow-lg" shopCatalog={storeServices} />
+                        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white text-shadow-cinematic">
                           {currentMovie?.title}
                         </h1>
-                        <p className="text-xs sm:text-sm md:text-base lg:text-lg line-clamp-2 md:line-clamp-3 leading-relaxed font-normal max-w-2xl select-text text-neutral-200 text-shadow-cinematic">
-                          {currentMovie?.overview}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 pt-1">
-                          {currentMovie?.genres?.slice(0, 3).map((g, idx) => (
-                            <span key={idx} className="text-[10px] sm:text-xs px-3.5 py-1.5 rounded-xl font-bold border bg-neutral-900/95 border-neutral-800 text-neutral-350">
-                              {g}
-                            </span>
-                          ))}
-                        </div>
                       </div>
                     </div>
 
-                    <div className="absolute bottom-6 left-0 w-full z-30 px-6 md:px-12 pointer-events-none">
-                      <div className="max-w-7xl mx-auto flex flex-col gap-2 pointer-events-auto">
-                        <div className="w-full h-[3.5px] rounded-full overflow-hidden bg-neutral-900">
-                          <div className={`h-full bg-red-655 transition-all ease-linear`} style={{ width: `${slideProgress}%` }} />
-                        </div>
-                        <div className="flex justify-end gap-1.5 pt-1">
-                          {movies.map((_, idx) => (
-                            <button
-                              key={idx}
-                              onClick={() => { setCurrentIndex(idx); setSlideProgress(0); }}
-                              className={`h-2.5 rounded-full transition-all duration-300 ${
-                                idx === currentIndex ? "bg-red-655 w-7" : "bg-neutral-800 w-2.5 hover:bg-neutral-700"
-                              }`}
-                            />
-                          ))}
-                        </div>
+                    {/* BARRA DE PROGRESO INFERIOR ESTILO GENERADOR */}
+                    <div className="absolute bottom-0 left-0 w-full z-30 bg-gradient-to-t from-black/80 to-transparent pt-8 pb-4 px-6 md:px-12 pointer-events-none">
+                      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 pointer-events-auto">
+                          <div className="flex-1 max-w-sm flex flex-col gap-1.5 ml-auto">
+                            <div className="w-full h-[3px] bg-neutral-800 rounded-full overflow-hidden">
+                              <div className={`h-full ${activeTheme?.accentBg || 'bg-red-655'} transition-all ease-linear`} style={{ width: `${slideProgress}%` }} />
+                            </div>
+                            <div className="flex justify-end gap-1.5 pt-1">
+                              {movies.map((_, idx) => (
+                                <button
+                                  key={idx}
+                                  onClick={() => { setCurrentIndex(idx); setSlideProgress(0); }}
+                                  className={`h-2 rounded-full transition-all duration-300 ${
+                                    idx === currentIndex ? `${activeTheme?.accentBg || 'bg-red-655'} w-6` : "bg-neutral-600 w-2 hover:bg-neutral-500"
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          </div>
                       </div>
                     </div>
                   </>
@@ -692,7 +660,7 @@
                                           className="w-full py-4.5 bg-[#25D366] hover:bg-[#20ba53] text-white font-black text-sm uppercase tracking-widest rounded-2xl transition-all shadow-xl shadow-emerald-500/20 text-center flex items-center justify-center gap-3 transform hover:-translate-y-1 active:scale-95"
                                       >
                                           <svg className="h-6 w-6 fill-current text-white" viewBox="0 0 24 24">
-                                              <path d="M12.005 0C5.378 0 .005 5.373.005 12.002c0 2.128.552 4.195 1.6 6.002L0 24l6.14-1.61c1.764.966 3.75 1.474 5.865 1.474 6.627 0 12-5.373 12-12.002S18.632 0 12.005 0zm0 21.84c-1.802 0-3.56-.484-5.11-1.402l-.367-.217-3.793.994.994-3.7-.238-.377a9.845 9.845 0 01-1.503-5.26c0-5.448 4.434-9.882 9.885-9.882 2.64 0 5.12 1.028 6.985 2.894 1.866 1.867 2.895 4.348 2.895 6.988 0 5.45-4.435 9.883-9.882 9.883zm5.418-7.397c-.297-.149-1.758-.867-2.03-.967-.272-.099-.47-.149-.668.149-.198.298-.767.967-.94 1.165-.173.198-.346.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.714.248-1.325.173-1.451-.074-.126-.272-.198-.57-.347z"/>
+                                              <path d="M12.005 0C5.378 0 .005 5.373.005 12.002c0 2.128.552 4.195 1.6 6.002L0 24l6.14-1.61c1.764.966 3.75 1.474 5.865 1.474 6.627 0 12-5.373 12-5.373 12-12.002S18.632 0 12.005 0zm0 21.84c-1.802 0-3.56-.484-5.11-1.402l-.367-.217-3.793.994.994-3.7-.238-.377a9.845 9.845 0 01-1.503-5.26c0-5.448 4.434-9.882 9.885-9.882 2.64 0 5.12 1.028 6.985 2.894 1.866 1.867 2.895 4.348 2.895 6.988 0 5.45-4.435 9.883-9.882 9.883zm5.418-7.397c-.297-.149-1.758-.867-2.03-.967-.272-.099-.47-.149-.668.149-.198.298-.767.967-.94 1.165-.173.198-.346.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.714.248-1.325.173-1.451-.074-.126-.272-.198-.57-.347z"/>
                                           </svg>
                                           Pagar y contactar al WhatsApp
                                       </a>
@@ -716,7 +684,13 @@
                                                 onClick={() => setActiveQrMethod(method)} 
                                                 className="flex items-center justify-center p-4 h-20 md:h-24 bg-neutral-900/50 border border-white/10 hover:bg-neutral-800/80 rounded-2xl cursor-pointer transition-all hover:scale-105 shadow-xl backdrop-blur-md w-full"
                                               >
-                                                  <img src={method.logo} alt={method.name} referrerPolicy="no-referrer" className="h-full w-full object-contain max-w-[120px] drop-shadow-sm" />
+                                                  {/* CONTENEDOR ESTRICTO UNIFORME PARA LOGOS DE PAGO (object-contain para no deformar y tamaño cuadrado) */}
+                                                  <img 
+                                                      src={method.logo} 
+                                                      alt={method.name} 
+                                                      referrerPolicy="no-referrer" 
+                                                      className="w-[80px] h-[80px] object-contain drop-shadow-sm" 
+                                                  />
                                               </div>
                                           );
                                       })}
@@ -742,12 +716,13 @@
                               {paymentMethods.map(method => {
                                 if (!method.logo) return null;
                                 return (
-                                    <div key={method.id} className="flex justify-center items-center h-10 sm:h-12 w-full px-2">
+                                    <div key={method.id} className="flex justify-center items-center w-full px-2">
+                                        {/* CONTENEDOR ESTRICTO UNIFORME PARA LOGOS DE PAGO (object-contain para ajustar escala sin desbordar lateralmente) */}
                                         <img 
                                           src={method.logo} 
                                           alt={method.name} 
                                           referrerPolicy="no-referrer" 
-                                          className="h-full w-full object-contain max-w-[110px] transition-transform hover:scale-110 drop-shadow-sm cursor-pointer" 
+                                          className="w-[70px] h-[70px] object-contain transition-transform hover:scale-110 drop-shadow-sm cursor-pointer" 
                                         />
                                     </div>
                                 );

@@ -1,5 +1,22 @@
 [
   {
+    "id": "tmdb-94997-tv",
+    "title": "La casa del dragón",
+    "platform": "Disney+",
+    "type": "Serie de TV",
+    "overview": "Basada en el libro 'Fuego y Sangre' de George R.R. Martin. La serie se centra en la casa Targaryen, trescientos años antes de los eventos vistos en 'Juego de Tronos'.",
+    "rating": 8.3,
+    "releaseYear": "2022",
+    "duration": "Nueva Temp",
+    "genres": [
+      "Sci-Fi y Fantasía",
+      "Drama",
+      "Acción y Aventura"
+    ],
+    "backdropUrl": "https://image.tmdb.org/t/p/w1280/577eXC8wFQT0eUrJcgznSiFPRmk.jpg",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/8MaxftF69sEAAD5673vTjIl8yT3.jpg"
+  },
+  {
     "id": "tmdb-284725-tv",
     "title": "No aptos para trabajar",
     "platform": "Disney+",

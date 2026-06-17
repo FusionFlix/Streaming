@@ -1,6 +1,6 @@
 {
   "globalSettings": {
-    "slideSpeed": 2000,
+    "slideSpeed": 6500,
     "whatsappPhone": "51986193615",
     "logoType": "text",
     "logoText": "FSNFLIX",
@@ -243,11 +243,23 @@
       "instructions": "Escanea el QR interoperable para transferir directamente a nuestro Plin."
     }
   ],
-  "socials": {
-    "whatsappGroup": "https://chat.whatsapp.com/GU9mxEeGn2LCGsUxsW9KiD?s=cl&p=a&mlu=1",
-    "facebook": "https://www.facebook.com/profile.php?id=61578347413295",
-    "tiktok": "https://www.tiktok.com/@fusionflix2.1?_r=1&_t=ZS-97DD8LHaJzc"
-  },
+  "socialsArray": [
+    {
+      "id": "soc-fb",
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/profile.php?id=61578347413295"
+    },
+    {
+      "id": "soc-wa",
+      "platform": "WhatsApp",
+      "url": "https://chat.whatsapp.com/GU9mxEeGn2LCGsUxsW9KiD?s=cl&p=a&mlu=1"
+    },
+    {
+      "id": "soc-tk",
+      "platform": "TikTok",
+      "url": "https://www.tiktok.com/@fusionflix2.1?_r=1&_t=ZS-97DD8LHaJzc"
+    }
+  ],
   "metaTags": {
     "title": "FSNFLIX | Tu Portal de Streaming Premium",
     "description": "Adquiere cuentas de streaming estables y garantizadas de Netflix, Disney+, Prime Video, Max y más.",

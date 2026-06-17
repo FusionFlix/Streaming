@@ -1,22 +1,5 @@
 [
   {
-    "id": "tmdb-296286-tv",
-    "title": "スーパーの裏でヤニ吸うふたり",
-    "platform": "Crunchyroll",
-    "type": "Serie de TV",
-    "overview": "Sin sinopsis disponible en español.",
-    "rating": 8,
-    "releaseYear": "2026",
-    "duration": "Nueva Temporada",
-    "genres": [
-      "Animación",
-      "Drama",
-      "Comedia"
-    ],
-    "backdropUrl": "https://image.tmdb.org/t/p/w1280/gkmE41A5ev5M299hLgX3JrWAM16.jpg",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/e35H4IqTgf8ZgWf61V2amM6JZ1s.jpg"
-  },
-  {
     "id": "tmdb-284725-tv",
     "title": "No aptos para trabajar",
     "platform": "Disney+",
@@ -30,57 +13,6 @@
     ],
     "backdropUrl": "https://image.tmdb.org/t/p/w1280/ysYPo1JqzHiHoIHpW9wXCtvY1LW.jpg",
     "posterUrl": "https://image.tmdb.org/t/p/w500/jNCxoCmUA3RSru461HaygE1HJrh.jpg"
-  },
-  {
-    "id": "tmdb-290019-tv",
-    "title": "I Made Friends with the Second Prettiest Girl in My Class",
-    "platform": "Crunchyroll",
-    "type": "Serie de TV",
-    "overview": "Maki Maehara, el marginado de la clase, finalmente hace su primera amiga: Umi Asanagi, la segunda chica más guapa de la clase y el centro de atención de todos. Está convencido de que ella está fuera de su alcance, pero a medida que su improbable amistad crece, Maki empieza a preguntarse... ¿podría haber algo más que amistad entre ellos?",
-    "rating": 8.4,
-    "releaseYear": "2026",
-    "duration": "Nueva Temporada",
-    "genres": [
-      "Animación",
-      "Comedia",
-      "Drama"
-    ],
-    "backdropUrl": "https://image.tmdb.org/t/p/w1280/q8vtAc81RluhMrh2QlaLgIm59Oa.jpg",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/8Y90sEn06eQTf1hZ8qd3CnV3IAp.jpg"
-  },
-  {
-    "id": "tmdb-1628448-movie",
-    "title": "¡Ay, mamá!",
-    "platform": "Netflix",
-    "type": "Película",
-    "overview": "En una comunidad donde no hay secretos, una madre desesperada recurre a sus hijas ―de quienes estaba distanciada― cuando ocurre un crimen en su casa.",
-    "rating": 7.2,
-    "releaseYear": "2026",
-    "duration": "2h 05m",
-    "genres": [
-      "Comedia",
-      "Suspenso",
-      "Drama"
-    ],
-    "backdropUrl": "https://image.tmdb.org/t/p/w1280/aV5YOTVTnO2wYcN2AlNbdgnBYpb.jpg",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/1Rr2cWE148klWKuUDi9WG3PU2r2.jpg"
-  },
-  {
-    "id": "tmdb-260463-tv",
-    "title": "Yomi no Tsugai: Dúo del Inframundo",
-    "platform": "Crunchyroll",
-    "type": "Serie de TV",
-    "overview": "En un mundo donde ciertos humanos controlan poderosos dúos sobrenaturales llamados tsugai, gobernar sobre estas entidades es el derecho de nacimiento de \"los hijos que separan el día y la noche\": los gemelos Yoru y Asa. Separados desde pequeños y ajenos a la verdad sobre su origen, hermano y hermana deberán luchar para reencontrarse, reclamar lo que les pertenece y salvar el mundo…",
-    "rating": 8.8,
-    "releaseYear": "2026",
-    "duration": "Nueva Temporada",
-    "genres": [
-      "Animación",
-      "Acción y Aventura",
-      "Sci-Fi y Fantasía"
-    ],
-    "backdropUrl": "https://image.tmdb.org/t/p/w1280/qc30hdrxHQgN5wiopU4bkRZow5L.jpg",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/mNqW2jnAogZa0nJ94q1LUum8Hos.jpg"
   },
   {
     "id": "tmdb-278573-tv",
@@ -99,23 +31,6 @@
     "posterUrl": "https://image.tmdb.org/t/p/w500/51EIbzw2pvsi73UXGtuHaZGJfQa.jpg"
   },
   {
-    "id": "tmdb-196950-tv",
-    "title": "Witch Hat Atelier",
-    "platform": "Crunchyroll",
-    "type": "Serie de TV",
-    "overview": "Koko es una niña que vive en un pequeño pueblo y que siempre ha soñado con convertirse en maga. Pero haber nacido sin aptitud mágica significaba que nunca podría convertirse en maga y nunca podría presenciar la chispa de la magia. Renunció a su sueño. Pero un día, un mago viajero llamado Kiefley llegó a su pueblo, y ella tuvo la oportunidad de verlo realizar magia.",
-    "rating": 9.2,
-    "releaseYear": "2026",
-    "duration": "Nueva Temporada",
-    "genres": [
-      "Animación",
-      "Drama",
-      "Sci-Fi y Fantasía"
-    ],
-    "backdropUrl": "https://image.tmdb.org/t/p/w1280/7zSko8MBo8UxJi2fPwglXFz7gV.jpg",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/1qGSBnrANHLX8C7KqGuPDCylns2.jpg"
-  },
-  {
     "id": "tmdb-276161-tv",
     "title": "Así aprenderás",
     "platform": "Netflix",
@@ -131,23 +46,6 @@
     ],
     "backdropUrl": "https://image.tmdb.org/t/p/w1280/vyG93jhmPL7tBIhRtCLa5mdBKob.jpg",
     "posterUrl": "https://image.tmdb.org/t/p/w500/lG83nWVT7cHl3nSxonaYhOjqyWH.jpg"
-  },
-  {
-    "id": "tmdb-283905-tv",
-    "title": "Kamiina Botan, Yoeru Sugata wa Yuri no Hana",
-    "platform": "Crunchyroll",
-    "type": "Serie de TV",
-    "overview": "Botan, una universitaria de 20 años, se emborracha en la fiesta del dormitorio y termina involucrándose con Ibuki, su burlona líder. ¡Una divertida comedia de enredos!",
-    "rating": 7,
-    "releaseYear": "2026",
-    "duration": "Nueva Temporada",
-    "genres": [
-      "Animación",
-      "Comedia",
-      "Drama"
-    ],
-    "backdropUrl": "https://image.tmdb.org/t/p/w1280/krbKWrBEOjPdUmp1CGRgRVnLsrs.jpg",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/se1dHUNQMRwUt75xRqkQRmXJicg.jpg"
   },
   {
     "id": "tmdb-1439930-movie",
@@ -183,42 +81,6 @@
     "posterUrl": "https://image.tmdb.org/t/p/w500/tTGToWluGxIsQJzRJCkCqhfjVtd.jpg"
   },
   {
-    "id": "tmdb-300131-tv",
-    "title": "Kill Blue",
-    "platform": "Crunchyroll",
-    "type": "Serie de TV",
-    "overview": "Jūzō Ōgami, un asesino legendario de 39 años, es atacado por una misteriosa avispa y despierta con el cuerpo de un adolescente de 13. Ahora debe infiltrarse en una escuela secundaria llena de caos y compañeros excéntricos mientras busca recuperar su forma original… antes de ser eliminado.",
-    "rating": 8.8,
-    "releaseYear": "2026",
-    "duration": "Nueva Temporada",
-    "genres": [
-      "Animación",
-      "Acción y Aventura",
-      "Comedia"
-    ],
-    "backdropUrl": "https://image.tmdb.org/t/p/w1280/jOxZVOYxghHw6ofH1QFG6ZQUt2V.jpg",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/1hzamo8nOZmurGQQ7P2uqpsGHek.jpg"
-  },
-  {
-    "id": "tmdb-1327819-movie",
-    "title": "Hoppers: Operación castor",
-    "platform": "Disney+",
-    "type": "Película",
-    "overview": "Mabel, una amante de los animales, utiliza una nueva e inteligente tecnología diseñada para \"transmitir\" la conciencia humana a animales robóticos realistas en un intento de comunicarse con los castores, descubriendo misterios dentro del mundo animal más allá de lo que pudiera haber imaginado.",
-    "rating": 8.2,
-    "releaseYear": "2026",
-    "duration": "2h 05m",
-    "genres": [
-      "Aventura",
-      "Animación",
-      "Comedia",
-      "Familiar",
-      "Ciencia Ficción"
-    ],
-    "backdropUrl": "https://image.tmdb.org/t/p/w1280/u53UYu5XG2hNgWGvs3xGhAVzypl.jpg",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/7NRpCaksHX0FEsXCNITOvhq7cZ3.jpg"
-  },
-  {
     "id": "tmdb-1582770-movie",
     "title": "Dhurandhar: The Revenge",
     "platform": "Netflix",
@@ -236,22 +98,6 @@
     "posterUrl": "https://image.tmdb.org/t/p/w500/hsJG5r6etrMNwW00BVp4NC7zi67.jpg"
   },
   {
-    "id": "tmdb-274622-tv",
-    "title": "ガンバレ！中村くん！！",
-    "platform": "Crunchyroll",
-    "type": "Serie de TV",
-    "overview": "El amor a primera vista no es un mito, y Okuto Nakamura puede dar fe de ello. Cada vez que su encantadora compañera de clase, Aiki Hirose, entra al salón, su corazón se acelera, a pesar de que nunca han hablado de verdad. Para colmo, Nakamura es un completo torpe y no tiene ni un solo amigo. ¿Arruinará su oportunidad en el amor antes siquiera de que comience?",
-    "rating": 9.2,
-    "releaseYear": "2026",
-    "duration": "Nueva Temporada",
-    "genres": [
-      "Animación",
-      "Comedia"
-    ],
-    "backdropUrl": "https://image.tmdb.org/t/p/w1280/wpsLsjCcIf3QexYO6pCaLm9PI0Z.jpg",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/rCI8bgsqoq2ho04ZE0gUr36l8Pg.jpg"
-  },
-  {
     "id": "tmdb-1198994-movie",
     "title": "¡Ayuda!",
     "platform": "Disney+",
@@ -267,23 +113,5 @@
     ],
     "backdropUrl": "https://image.tmdb.org/t/p/w1280/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
     "posterUrl": "https://image.tmdb.org/t/p/w500/xzM7ixyJvqvW4le3SHYq8JsqGMK.jpg"
-  },
-  {
-    "id": "tmdb-1007757-movie",
-    "title": "Intercambiados",
-    "platform": "Netflix",
-    "type": "Película",
-    "overview": "Una pequeña criatura del bosque y un ave majestuosa intercambian cuerpos. Ahora, deben aliarse para sobrevivir a la aventura más salvaje de sus vidas.",
-    "rating": 9,
-    "releaseYear": "2026",
-    "duration": "2h 05m",
-    "genres": [
-      "Aventura",
-      "Animación",
-      "Familiar",
-      "Fantasía"
-    ],
-    "backdropUrl": "https://image.tmdb.org/t/p/w1280/zMwhWailP1WY7sb6AoE6b8ugoy.jpg",
-    "posterUrl": "https://image.tmdb.org/t/p/w500/m0psah5Ttchm7Jlp74NZ5xDe6C8.jpg"
   }
 ]

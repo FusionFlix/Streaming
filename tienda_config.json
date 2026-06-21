@@ -1,6 +1,6 @@
 {
   "globalSettings": {
-    "slideSpeed": 6500,
+    "slideSpeed": 6000,
     "whatsappPhone": "51986193615",
     "logoType": "text",
     "logoText": "FSNFLIX",
@@ -187,7 +187,7 @@
     {
       "id": "appletv",
       "name": "Apple TV+",
-      "color": "#ffffff",
+      "color": "#a1a1a1",
       "plan": "Apple TV+",
       "price": "15.00",
       "logoUrl": "https://1000logos.net/wp-content/uploads/2022/02/Apple-TV-Logo-1.png",

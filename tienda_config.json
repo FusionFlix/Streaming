@@ -90,10 +90,10 @@
     },
     {
       "id": "spotify",
-      "name": "Spotify",
+      "name": "Spotify Premium ",
       "color": "#1DB954",
       "plan": "Premium Individual",
-      "price": "14.90",
+      "price": "9.00",
       "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg",
       "features": [
         "Música sin anuncios",
@@ -101,15 +101,15 @@
         "Audio de alta calidad"
       ],
       "btnText": "#000000",
-      "status": "Disponible",
+      "status": "Agotado",
       "badge": ""
     },
     {
       "id": "youtube",
-      "name": "YouTube",
+      "name": "YouTube Premium ",
       "color": "#FF0000",
-      "plan": "Premium Familiar",
-      "price": "16.90",
+      "plan": "Premium Individual ",
+      "price": "7.00",
       "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg",
       "features": [
         "Videos sin anuncios",
@@ -124,8 +124,8 @@
       "id": "paramount",
       "name": "Paramount+",
       "color": "#0064FF",
-      "plan": "Plan Básico",
-      "price": "10.90",
+      "plan": "Plan Premium ",
+      "price": "9.00",
       "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Paramount_Plus.svg",
       "features": [
         "Películas de éxito",
@@ -133,20 +133,21 @@
         "Contenido de Nickelodeon"
       ],
       "btnText": "#ffffff",
-      "status": "Disponible",
+      "status": "Agotado",
       "badge": ""
     },
     {
       "id": "vix",
       "name": "ViX Premium",
       "color": "#FF6B00",
-      "plan": "Vix Premium",
-      "price": "18.00",
+      "plan": "Premium ",
+      "price": "5.00",
       "logoUrl": "https://www.hollywoodreporter.com/wp-content/uploads/2024/01/ViX_logo-1-H-2024.jpg",
       "features": [
-        "Liga MX exclusiva",
-        "Liga Española",
-        "Telenovelas premium"
+        "Telenovelas de México",
+        "Telenovelas de Perú",
+        "TV en vivo",
+        "America TV Go"
       ],
       "btnText": "#ffffff",
       "status": "Disponible",
@@ -156,8 +157,8 @@
       "id": "canva",
       "name": "Canva Pro",
       "color": "#00C4CC",
-      "plan": "Canva Pro",
-      "price": "10.00",
+      "plan": "Version Pro Edu",
+      "price": "6.00",
       "logoUrl": "https://edudigital.pro/wp-content/uploads/2024/03/CANVAPRO.png",
       "features": [
         "Herramientas Pro de diseño",
@@ -170,10 +171,10 @@
     },
     {
       "id": "magis",
-      "name": "Magis TV",
+      "name": "FLUJO TV ",
       "color": "#FFD700",
-      "plan": "Panel IPTV",
-      "price": "20.00",
+      "plan": "Tv en Vivo",
+      "price": "10.00",
       "logoUrl": "https://magisstvapp.com/wp-content/uploads/2026/03/cropped-magiss-tv-app-logo-02-01.png",
       "features": [
         "Miles de canales premium en vivo",
@@ -188,13 +189,12 @@
       "id": "appletv",
       "name": "Apple TV+",
       "color": "#a1a1a1",
-      "plan": "Apple TV+",
-      "price": "15.00",
+      "plan": "Premium ",
+      "price": "8.00",
       "logoUrl": "https://1000logos.net/wp-content/uploads/2022/02/Apple-TV-Logo-1.png",
       "features": [
-        "Producciones originales",
-        "Calidad visual premium",
-        "Alta fidelidad"
+        "Producciones originales de Apple TV",
+        "Calidad visual premium"
       ],
       "btnText": "#000000",
       "status": "Disponible",

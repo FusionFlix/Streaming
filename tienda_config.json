@@ -22,14 +22,14 @@
       ],
       "btnText": "#ffffff",
       "status": "Disponible",
-      "badge": ""
+      "badge": "RECOMENDADO"
     },
     {
       "id": "disney",
       "name": "Disney+ Premium",
       "color": "#0063E5",
       "plan": "Plan Premium ",
-      "price": "9",
+      "price": "9.00",
       "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg",
       "features": [
         "Disney, Pixar y Marvel",
@@ -38,14 +38,14 @@
       ],
       "btnText": "#ffffff",
       "status": "Disponible",
-      "badge": ""
+      "badge": "RECOMENDADO"
     },
     {
       "id": "max",
-      "name": "Max",
+      "name": "HBO Max ",
       "color": "#002BE7",
-      "plan": "Plan Platino",
-      "price": "18.90",
+      "plan": "Plan Standard ",
+      "price": "6.00",
       "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Max_logo.svg",
       "features": [
         "Catálogo de HBO y DC",
@@ -54,14 +54,14 @@
       ],
       "btnText": "#ffffff",
       "status": "Disponible",
-      "badge": ""
+      "badge": "RECOMENDADO"
     },
     {
       "id": "prime",
-      "name": "Prime Video",
+      "name": "Amazon - Prime Video",
       "color": "#00A8E1",
-      "plan": "Plan Mensual",
-      "price": "12.90",
+      "plan": "Plan Premium ",
+      "price": "8.00",
       "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
       "features": [
         "Series originales",
@@ -70,14 +70,14 @@
       ],
       "btnText": "#000000",
       "status": "Disponible",
-      "badge": ""
+      "badge": "RECOMENDADO"
     },
     {
       "id": "crunchyroll",
       "name": "Crunchyroll",
       "color": "#F47521",
       "plan": "Mega Fan",
-      "price": "12.00",
+      "price": "7.00",
       "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/0/08/Crunchyroll_Logo.png",
       "features": [
         "Sin publicidad",

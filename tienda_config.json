@@ -26,10 +26,10 @@
     },
     {
       "id": "disney",
-      "name": "Disney+",
+      "name": "Disney+ Premium",
       "color": "#0063E5",
-      "plan": "Plan Estándar",
-      "price": "12",
+      "plan": "Plan Premium ",
+      "price": "9",
       "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg",
       "features": [
         "Disney, Pixar y Marvel",
